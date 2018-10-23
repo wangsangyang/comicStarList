@@ -1,0 +1,502 @@
+<style lang="less">
+@color: #303030;
+@activecolor: #419BFF;
+@fontsize32: 32rpx;
+@fontsize30: 30rpx;
+@fontsize28: 28rpx;
+@fontsize26: 26rpx;
+page{ 
+  padding: 20rpx; 
+  background-color: #f3f3f3;
+  color: @color; 
+ }
+.cont-header{ 
+  background-color: #fff;
+  padding: 45rpx 0 35rpx;
+  text-align: center;
+  position: relative;
+  .tag{ width: 86rpx; position: absolute; top: 26rpx; left: 50%; margin: 0 0 0 50rpx; }
+  .touxiang{
+    position: relative; 
+    z-index: 2;
+    background-color: #fff;
+    width: 150rpx; 
+    height: 150rpx;
+    margin: auto;
+    border: solid 2rpx @activecolor;
+    border-radius: 50%;
+    overflow: hidden;
+    .icon{ display: block; width: 100%; }
+  }
+  .nickbox{ 
+    padding: 30rpx 0 0;
+    font-size: @fontsize30; 
+    .text{ font-size: @fontsize30; }
+  }
+  .row3{
+    padding: 12rpx 5rpx 0;
+    font-size: @fontsize26;
+    .s1{
+      display: inline-block;
+      color: #D85940;
+      font-size: 38rpx;
+      font-weight: bold;
+      margin-right: 16rpx;
+    }
+    .s2{ color: #696969; }
+  }
+  .row4{
+    padding: 26rpx 0 0;
+    font-size: @fontsize26;
+    color: #696969;
+  }
+}
+
+.cont-record{ 
+  padding: 10rpx 0 0 40rpx;
+  .bodyer{
+    .col-1{ font-size: @fontsize30; color: #696969; padding: 50rpx 30rpx 0 0; white-space: nowrap; }
+    .col-2{ 
+      display: flex;
+      flex-wrap: wrap;
+      .list{
+        width: 100rpx;
+        height: 100rpx;
+        margin: 20rpx 30rpx 0 0;
+        border: solid 2rpx @activecolor;
+        border-radius: 50%;
+        overflow: hidden;
+        text-align: center;
+        .img{ display: inline-block; width: 100%; }
+        &::before{
+          content: '';
+          display: inline-block;
+          width: 0;
+          height: 100%;
+          vertical-align: middle;
+        }
+      }
+      .add{
+        .img{ width: 55%; vertical-align: middle; }
+      }
+    }
+  }
+  
+}
+
+.cont-1{ font-size: @fontsize26; color: #696969; padding: 20rpx 40rpx 0; }
+.cont-2{ font-size: @fontsize26; color: #696969; padding: 20rpx 40rpx 0; text-align: center; }
+
+.cont-btn{
+  padding: 20rpx 0 0;
+  font-size: @fontsize26;
+  color: #696969; 
+  text-align: center;
+  checkbox-group{ 
+    checkbox{ 
+      display: inline-block; transform:scale(0.55); vertical-align: top; margin: -6rpx -4rpx 0 0;
+      .wx-checkbox-input{ background-color: none; border: solid 1px #aaa; }
+      .wx-checkbox-input.wx-checkbox-input-checked{ 
+        background-color: @activecolor; border: solid 1px @activecolor; 
+        &::before{ font-size:55rpx; color:#fff; }
+      }
+    }
+  }
+  .btns{ padding: 150rpx 100rpx 0; }
+}
+
+
+.modalRedXJ{ 
+  .container{ 
+    .btns{ padding: 20rpx 80rpx 0; }
+    .t2{ position: relative; z-index: 99; }
+  }
+}
+</style>
+
+<template>
+
+    <view class="cont-header">
+      <image mode='widthFix' class="tag" src="../images/icon2.png"/>
+      <view class="touxiang"><image mode='widthFix' class="icon" src="{{avatar}}"/></view>
+      <view class="nickbox">{{userName}}</view>
+      <!-- 
+      <view class="row1">
+        <image mode='widthFix' class="img" src="../images/bg1.png"/>
+      </view>
+      <view class="row2">性感邮包</view>
+       -->
+      <view class="row3"><text class="s1">10</text><text class="s2">元代金券</text></view>
+      <!-- <view class="row4">红包有效期24小时</view> -->
+      <view class="row4">{{daojishi}}后过期</view>
+    </view>
+
+    <view class="cont-record">
+      <view class="bodyer">
+        <view class="col-1">邀请记录</view>
+        <view class="col-2">
+          <view class="list" wx:for="{{friendsArray}}" wx:key=""><image mode='widthFix' class="img" src="{{item}}"/></view>
+          <view class="list add" wx:if="{{friendsArray.length<10}}"><image mode='widthFix' class="img" src="../images/icon-plus.png"/></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="cont-1" wx:if="{{friendsArray.length<10}}">还差{{10-friendsArray.length}}个助力就可以提现了！</view>
+    <view class="cont-1" wx:if="{{friendsArray.length>=10}}">10元代金券已获得</view>
+
+    <view class="cont-btn">
+      <view class="btns">
+        <button class='btn' open-type="getUserInfo" @tap="zhuliFriend">助力好友拿红包</button> 
+      </view>
+    </view>
+
+    <view class="cont-2">邀请未使用过动漫明星榜的好友才可以获得红包</view>
+
+    <!-- 开现金红包弹窗 -->
+    <view class="modal modalRedXJ" hidden="{{isShowModalRedXJ}}">
+      <view class="container">
+        <!-- <image mode='widthFix' class="close" src="../images/close1.png" @tap="closeModalRedXJFn"/> -->
+        <view class="touxiang"><image mode='widthFix' class="img" src="{{myselfavatar}}"/></view>
+        <view class="t1">谢谢你的助力</view>
+        <view class="t2">送你10元现金</view>
+        <view class="btns"><text class="btn" @tap="linkMyWeixinRedFn">立即领取</text></view>
+        <image mode='widthFix' class="bg" src="../images/hong1.png"/>
+      </view>
+    </view>
+
+    <!-- 送你的星能红包 -->
+    <view class="modal modalRedXJ" hidden="{{isShowModalRedSong}}">
+      <view class="container">
+        <!-- <image mode='widthFix' class="close" src="../images/close1.png" @tap="closeModalRedXJFn"/> -->
+        <view class="touxiang"><image mode='widthFix' class="img" src="{{myselfavatar}}"/></view>
+        <view class="t1">谢谢你的助力</view>
+        <view class="t2">送你{{songNumberXN}}星能红包</view>
+        <view class="btns"><text class="btn" @tap="linkMyXNRedFn">立即领取</text></view>
+        <image mode='widthFix' class="bg" src="../images/hong1.png"/>
+      </view>
+    </view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {util} from '../js/util'
+
+  export default class FriendKaiRedXN extends wepy.page {
+    config = {
+      navigationBarTitleText: '邀请好友领现金红包',
+    }
+
+    data = {   
+      options: '',
+      uId: '',//分享带过来的uid
+      redEnvelopeId: '',//分享带过来的红包id
+      avatar: '',//分享带过来的头像
+      userName: '',//分享带过来的用户名
+      redType: '',//分享带过来的红包类型
+      myselfavatar: '',//自己的头像
+      myUid: '',//自己的uid
+      myRedEnvelopeId: '',
+      beginTime: '',
+      daojishi: '---',
+      isGuoqiRed: '',//红包是否过期
+      friendsArray: [],//好友列表
+      isShowModalRedXJ: true,//系统送你现金红包弹窗
+      isShowModalRedSong: true,//系统送你星能红包弹窗
+      songNumberXN: 5,//帮助朋友，系统送自己5个星能
+      isOldUser: false,//false：新用户，true：老用户
+    }
+
+    logins(userRes,loginRes){
+        let wxUserInfo = userRes.userInfo;
+        let avatar = userRes.userInfo.avatarUrl;
+        let userName = userRes.userInfo.nickName;
+        let sex = userRes.userInfo.gender;
+        //console.log(wxUserInfo);
+        //console.log(avatar);
+        //console.log(userName);
+        //console.log(sex);
+        this.myselfavatar = avatar;
+        this.setData({myselfavatar: avatar});
+
+        wx.setStorageSync('wxUserInfo', wxUserInfo);
+        let params = {
+            url: 'program/user/login',
+            data: {
+              code: loginRes.code,
+              avatar: avatar,
+              userName: userName,
+              sex: sex,
+            }
+        };
+        util.$http(params).then(response=>{
+            //console.log(response);
+            if(response.statusCode==200&&response.data.code=='0000'){
+
+                // if(response.data.data.money&&response.data.data.money!=null){//如果money有值且不为null，说明是新用户
+                //     this.isOldUser = true;
+                //     this.setData({isOldUser: true});
+                // }else{//如果money值为null，说明是老用户
+                //     this.isOldUser = false;
+                //     this.setData({isOldUser: false});
+                // }
+
+                //response.data.data.money.state;//0：红包未拆开，1：红包已拆开
+                //response.data.data.money.type;//1：现金红包，2：星能红包
+                wx.setStorageSync('userInfo', response.data.data.userInfo);
+                wx.setStorageSync('money', response.data.data.money);
+                //this.$parent.globalData.userInfo = response.data.data.userInfo;
+                //console.log(that.$parent.globalData.userInfo);
+                if(response.data.data.money){
+                  this.$parent.globalData.redEnvelopeId = response.data.data.money.redEnvelopeId;//设置红包的id
+                  this.$parent.globalData.redType = response.data.data.money.type;//设置红包的类型
+                } 
+
+                this.myUid = response.data.data.userInfo.uId;
+                this.myRedEnvelopeId = response.data.data.money?response.data.data.money.redEnvelopeId:0;
+                this.setData({
+                  myUid: this.myUid,
+                  myRedEnvelopeId: this.myRedEnvelopeId
+                });
+                this.clickRedEnvelopesFn();
+            }
+
+        });
+    }
+
+    //助力
+    clickRedEnvelopesFn(){    
+        let params = {
+            url: 'program/user/clickRedEnvelopes',
+            data: {
+              uId: this.myUid,//自己领取自己的不用传uId(自己的id)
+              redEnvelopeId: this.myRedEnvelopeId,
+              type: 1,
+              source: 2,
+              shareUid: this.uId,
+              parentType: this.redType,
+              parentRedEnvelopeId: this.redEnvelopeId,
+            }
+        };
+        util.$http(params).then(response=>{
+            console.log(response);
+            if(response.statusCode==200&&response.data.code=='0000'){
+                let money = wx.getStorageSync('money');
+                if(money){//money有值且不为null，说明ta以前的红包过期了，则系统新生成了1个红包
+                    if(money.type==1){//type=1现金红包
+                      this.isShowModalRedXJ = false;
+                      this.setData({isShowModalRedXJ: false});
+                    }
+                    if(money.type==2){//type=2星能红包
+                      //this.songNumberXN = money.starNum;
+                      this.isShowModalRedSong = false;
+                      this.setData({ isShowModalRedSong: this.isShowModalRedSong });
+                    }
+                }else{//money为null，说明ta以前的红包没有过期，则系统新生成了1个红包，则系统不会新生成红包
+                    wx.showModal({
+                        title: '',
+                        content: '助力成功',
+                        showCancel: false,
+                        confirmText: '我知道了',
+                        success(){
+                          wx.switchTab({
+                            url: 'index'
+                          });
+                        }
+                    });
+                }
+
+                this.initFn(this.options);
+            }else{
+               wx.showModal({
+                  title: '',
+                  content: response.data.msg,
+                  showCancel: false,
+                  confirmText: '我知道了',
+                  confirmColor: '#f00',
+                  success(){
+                    wx.switchTab({
+                      url: 'index'
+                    });
+                  }
+              }); 
+            }
+        });  
+    }
+
+    methods = {
+      closeModalRedXJFn(){
+        this.isShowModalRedXJ = true;
+      },
+      zhuliFriend(){
+          let that = this;
+          wx.getSetting({
+            success: result=> {
+                // 用户同意授权，调用getUserInfo方法获取头像昵称
+                if (result.authSetting['scope.userInfo']) {
+                    wx.getUserInfo({
+                        //用户同意授权
+                        success: userRes=> {
+                            console.log(userRes);
+                            wx.login({
+                                withCredentials: true, 
+                                success(loginRes){
+                                    //console.log(res);
+                                    that.logins(userRes,loginRes);
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+          });
+      },
+      //跳转我的现金红包
+      linkMyWeixinRedFn(){
+        wx.redirectTo({
+          url: 'myWeixinRed'
+        });
+      },
+      //跳转我的星能红包
+      linkMyXNRedFn(){
+        wx.redirectTo({
+          url: 'myStarenergyRed'
+        });
+      },
+      // openModalLingqu(){
+      //   this.isShowModalRedXJ = true;
+      //   this.isShowModalRedSong = false;
+      // }
+    }
+
+    initFn(options){
+        this.uId = options.uId;
+        this.redType = options.redType;
+        this.avatar = options.avatar;
+        this.userName = options.userName;
+        this.redEnvelopeId = options.redEnvelopeId;
+        this.setData({
+          options: options,
+          uId: options.uId,
+          redType: options.redType,
+          avatar: options.avatar,
+          userName: options.userName, 
+          redEnvelopeId: options.redEnvelopeId,
+        });
+
+        let params = {
+            url: 'program/user/myMoneyList',
+            data: {
+              //uId: options.uId,
+              //redEnvelopeId: options.redEnvelopeId,
+              source: 2,//2查别人的列表
+              type: 1,
+              parentType: options.redType,
+              parentRedEnvelopeId: options.redEnvelopeId,
+              shareUid: options.uId,
+            }
+        };
+        util.$http(params).then(response=>{
+          console.log(response);
+          if(response.statusCode==200&&response.data.code=='0000'){
+              this.friendsArray = response.data.data.clickInfo;
+              this.endTime = response.data.data.endTime;
+              this.timer(this.endTime);
+              this.setData({
+                //avatar: response.data.data.userInfo.imageUrl,
+                //userName: response.data.data.userInfo.name,
+                //beginTime: response.data.data.beginTime,
+                isGuoqiRed: response.data.data.state,
+                friendsArray: response.data.data.clickInfo,
+              });
+          }
+        });
+    }
+
+    onLoad(options) {
+      console.log(options);
+      this.options = options;
+      this.setData({ options: options });
+      this.initFn(options);
+    // onLoad() {
+      //console.log(options);
+      // let options = {
+      //   uId: "36", 
+      //   redType: "1", 
+      //   redEnvelopeId: "35", 
+      //   avatar: "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eozEx9icU3GGQZ8uZFC2eVaHguPhWNOS9gjvGsI3UDWPPoTznwlclDgYaLRhgQP3zbMcDj1UV4EXKg/132", 
+      //   source: "2", 
+      //   userName: "披着羊皮的羊"
+      // };
+
+      // this.uId = options.uId;
+      // this.redType = options.redType;
+      // this.avatar = options.avatar;
+      // this.userName = options.userName;
+      // this.redEnvelopeId = options.redEnvelopeId;
+      // this.setData({
+      //   uId: options.uId,
+      //   redType: options.redType,
+      //   avatar: options.avatar,
+      //   userName: options.userName, 
+      //   redEnvelopeId: options.redEnvelopeId,
+      // });
+
+      // let params = {
+      //     url: 'program/user/myMoneyList',
+      //     data: {
+      //       uId: options.uId,
+      //       redEnvelopeId: options.redEnvelopeId,
+      //       source: 1,//查别人的列表
+      //       type: 1,
+      //     }
+      // };
+      // util.$http(params).then(response=>{
+      //   console.log(response);
+      //   if(response.statusCode==200&&response.data.code=='0000'){
+      //       this.friendsArray = response.data.data.clickInfo,
+      //       this.setData({
+      //         avatar: response.data.data.userInfo.imageUrl,
+      //         userName: response.data.data.userInfo.name,
+      //         beginTime: response.data.data.beginTime,
+      //         isGuoqiRed: response.data.data.state,
+      //         friendsArray: response.data.data.clickInfo,
+      //       });
+      //       this.timer(response.data.data.beginTime);
+      //   }
+      // });
+
+    }
+
+    /**
+     * 入参第一个为时间字符串，第二个参数为模式选择，如果传入'day'，按天数倒计时到秒，不传值，按小时精确到秒
+     * @param timeStr
+     * @param item
+    */
+    timer(endTime){
+      //console.log(12);
+        setInterval(()=>{
+            let daojishi;
+            let nowTime = endTime - new Date().getTime();
+            let minutes = parseInt(nowTime / 1000 / 60 % 60, 10);//计算剩余的分钟
+            let seconds = parseInt(nowTime / 1000 % 60, 10);//计算剩余的秒数
+            minutes = this.checkTime(minutes);
+            seconds = this.checkTime(seconds);
+            let hours = parseInt(nowTime / ( 1000 * 60 * 60), 10); //计算剩余的小时
+            hours = this.checkTime(hours);
+            daojishi = hours + "小时" + minutes + "分" + seconds + "秒";
+            this.daojishi = daojishi;
+            this.setData({ daojishi: daojishi });
+            
+        },1000);
+    }
+   
+    checkTime(i) { //将0-9的数字前面加上0，例1变为01
+      if (i < 10) {
+          i = "0" + i;
+      }
+      return i;
+    }
+
+  }
+</script>

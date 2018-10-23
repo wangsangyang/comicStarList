@@ -1,0 +1,223 @@
+<style lang="less">
+page{ padding: 107rpx 0 0; background-color: #F6F6F6; }
+.search-box{ 
+  position: fixed; top: 0; left: 0; z-index: 9; width: 100%; padding: 20rpx 20rpx; background-color: #fff; 
+  .icon-search{ width: 38rpx; position: absolute; top: 32rpx; left: 32rpx; z-index: 2; } 
+  .clear{ position: absolute; top: 32rpx; right: 130rpx; z-index: 3; } 
+  .box{ display: flex; }
+  .searchkey{ flex: 1; padding: 0 0 0 55rpx; margin-right: 15rpx; font-size: 28rpx; height: 68rpx; background-color: #f5f5f5; border-radius: 40rpx; }
+  .placeholder{ color: #8E8E93; }
+  .cancel{ font-size: 28rpx; line-height: 68rpx; padding: 0 10rpx; color: #303030; }
+}
+.search-hasdata{
+  background-color: #fff;
+  margin: 20rpx 0 20rpx;
+  .list{
+    display: flex;
+    align-items: center;
+    padding: 20rpx 50rpx;
+    border-bottom: solid 1rpx #F3F3F3;
+    .left{
+      width: 96rpx;
+      height: 120rpx;
+      border: solid 2rpx #87C0FF;
+      border-radius: 8rpx;
+      overflow: hidden;
+      text-align: center;
+      image{
+        width: 100%;
+        display: inline-block;
+      }
+    }
+    .middle{
+      flex: 1;
+      margin-left: 50rpx;
+      .t1{
+        font-size: 32rpx;
+        color: #303030;
+      }
+      .t2{
+        .s1{ 
+          font-size: 30rpx;
+          color: #696969;
+        }
+        .icon{ width: 25rpx; vertical-align: middle; margin: 0 0 0 10rpx; }
+      }
+    }
+    .right{
+      .btn{ display: block; width: 150rpx; height: 60rpx; line-height: 60rpx; background-color: #419BFF; color: #fff; border-radius: 100rpx; font-size: 30rpx; }
+    }
+  }
+}
+.search-nodata{
+  background-color:#fff;
+  padding: 60rpx 0 0;
+  height: 1000rpx;
+  text-align: center; 
+  .img{ width: 60%; }
+  .text{ display: block; color: #87C0FF; font-size: 30rpx; padding: 150rpx 0 0; }
+  .btns{ 
+    padding: 50rpx 100rpx 0;
+  }
+}
+</style>
+
+<template>
+
+    <view class='search-box'>
+        <image class='icon-search' mode='widthFix' src='../images/icon-search.png'/>
+        <icon class="clear" type="cancel" size="20" color="#8E8E93" @tap="clearKeyword" wx:if="{{showClearbtn}}"/>
+        <view class='box'>
+            <input class='searchkey' confirm-type='search' focus="true" placeholder-class="placeholder" bindconfirm='confirmSearchFn' placeholder='输入动漫人物名称'/>
+            <text class="cancel" @tap="linkBack">取消</text>
+        </view>
+    </view>
+
+    <view class="search-hasdata" wx:if="{{searchResult}}">
+      <view class="list" wx:for="{{searchResult}}" wx:key="index">
+        <view class="left"><image class='img' mode='widthFix' src='{{item.imageUrl}}'/></view>
+        <view class="middle">
+          <view class="t1">{{item.name}}</view>
+          <view class="t2">
+            <text class="s1">{{item.starNum}}</text>
+            <image class='icon' mode='widthFix' src='../images/icon-hot.png'/>
+          </view>
+        </view>
+        <view class="right">
+          <button class='btn' @tap="linkDabang({{item.workId}}, {{item.name}}, {{item.imageUrl}}, {{item.region}})">打榜</button> 
+        </view>
+      </view>
+    </view>
+
+    <view class="search-nodata" hidden="{{noSearchResult}}">
+      <image class='img' mode='widthFix' src='../images/nodata.png'/>
+      <text class='text'>暂时未收录该动漫明星</text>
+      <view class="btns">
+        <button class='btn' catchtap='linkApplyInclude'>申请收录</button> 
+      </view>
+    </view>
+    
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {util} from '../js/util'
+
+  export default class Search extends wepy.page {
+    config = {
+      navigationBarTitleText: '搜索',
+    }
+
+    data = {
+      keyword: '',
+      showClearbtn: false,//是否显示清除按钮
+      page: 1,
+      searchResult: [],
+      noSearchResult: true,
+    }
+
+    initSearch(page){
+        //let keyword = e.detail.value;           
+        //console.log(e.detail.value);
+        let params = {
+            url: 'program/work/getWorkInfo',
+            data: {
+              name: this.keyword,
+              page: page,
+            }
+        };
+        console.log(params);
+        util.$http(params).then(response=>{
+          //console.log(response);
+          console.log(response.data.data);
+          if(response.data.data.length>0){
+            this.noSearchResult = true;
+            this.searchResult = this.searchResult.concat(response.data.data);
+            this.setData({
+              searchResult: this.searchResult,
+              noSearchResult: this.noSearchResult
+            });
+          }else{
+            //this.noSearchResult = false;
+            this.setData({noSearchResult: this.noSearchResult});
+            wx.showToast({
+                title: '没有更多数据了！',
+                icon: 'none',
+                duration: 1000
+            });
+          }
+        });
+    }
+
+    methods = {
+        linkBack(){
+          /*
+          wx.switchTab({
+            url: 'index'
+          });
+          */
+          wx.navigateBack({
+              delta: 1
+          })
+        },
+        //搜索
+        confirmSearchFn(e) {     
+            let keyword = e.detail.value;   
+            this.keyword = e.detail.value;  
+            //console.log(this.keyword); 
+            this.page = 1;      
+            let params = {
+                url: 'program/work/getWorkInfo',
+                data: {
+                  name: this.keyword,
+                  page: 1,
+                }
+            };
+            console.log(params);
+            util.$http(params).then(response=>{
+              //console.log(response);
+              console.log(response.data.data);
+              if(response.data.data.length>0){
+                this.noSearchResult = true;
+                this.searchResult = response.data.data;
+                this.setData({
+                  searchResult: this.searchResult,
+                  noSearchResult: this.noSearchResult
+                });
+              }else{
+                this.noSearchResult = false;
+                this.setData({noSearchResult: this.noSearchResult});
+              }
+            });
+        },
+        //上拉加载
+        onReachBottom(){
+          console.log(23);
+          this.page = ++this.page;
+          console.log(this.page);    
+          this.initSearch(this.page);
+        },
+        inputKeywordFn(e){    
+          this.keyword = e.detail.value;
+          this.showClearbtn = true;
+          console.log(this.keyword);
+        },
+        clearKeyword(){
+          this.keyword = '';
+        },
+        linkApplyInclude(){
+          let keyword = this.keyword;
+          wx.navigateTo({
+            url: 'applyInclude?keyword=' + keyword
+          });
+        },
+        //跳转打榜页
+        linkDabang(workId,name,imageUrl,region){
+          let options = 'workId=' + workId + '&name=' + name + '&imageUrl=' + imageUrl + '&region=' + region
+          wx.navigateTo({
+            url: 'dabang?' + options
+          });
+        },
+    }
+  }
+</script>

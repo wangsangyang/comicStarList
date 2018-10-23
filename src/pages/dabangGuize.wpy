@@ -1,0 +1,85 @@
+<style lang="less">
+@color: #303030;
+@activecolor: #419BFF;
+@fontsize32: 32rpx;
+@fontsize30: 30rpx;
+@fontsize28: 28rpx;
+@fontsize26: 26rpx;
+page{ 
+  padding: 20rpx 30rpx 40rpx; 
+  color: @color; 
+}
+.h1{ 
+  text-align: center;
+  font-size: 34rpx;
+  padding: 20rpx 0 40rpx;
+}
+.h2{ 
+  font-size: 32rpx;
+  padding: 20rpx 0 10rpx;
+}
+.p{ font-size: @fontsize28; padding: 5rpx 0; color: #666; text-indent: 2em; }
+.space{ text-indent:4em; }
+.spacepadding{ padding-left:2em; }
+</style>
+
+<template>
+
+
+    <!-- <view class="h1">打榜规则</view> -->
+
+    <view class="p">动漫明星榜第一个针对动漫人物的粉丝运营平台，粉丝通过动漫明星榜给自己喜爱的动漫人物打榜，每周和每月都会根据榜单排名公布排名。榜单以粉丝真实打榜的数据为依据进行排名，公开、公正、透明，是极具影响力的动漫人物打榜平台。</view>
+
+    <view class="h2">打榜规则：</view>
+    <view class="p">粉丝通过星能给自己喜爱的动漫人物打榜，可以通过连续登陆获得星能；</view>
+    <view class="p">1.登陆：每天登陆签到获得星能，连续登陆7天额外获得30星能；</view>
+    <view class="p">2.星能红包：首次登陆发个“星能”红包，一起邀请好友来拆红包得星能；</view>
+    <view class="p">红包总额没有上线，邀请好友越多，获得星能值越多，当满足对应人数时，有额外的奖励；</view>
+    <view class="p">每人每天有3次帮开的机会，每天可帮助同一个人开一次；</view>
+
+    <view class="h2">排名规则：</view>
+    <view class="p">选择喜爱的人物，使用星能打榜，每次打榜最低5星能，榜单分为周榜和总榜（月榜）。</view>
+    <view class="p">总榜（月榜），统计周期为每月1日0:00至当月末日23:59:59，统计人物获得的星能值；</view>
+    <view class="p">周榜，统计周期为每周一0:00至当周末日23:59:59，统计人物获得的星能值；</view>
+    <view class="p">榜单分为日漫明星榜-周榜、总榜，国漫明星榜-周榜、总榜；</view>
+
+    <view class="h2">动漫明星福利：</view>
+    <view class="p">总榜（月榜）冠军：</view>
+    <view class="p space">1. 获得动漫明星榜大图推荐；</view>
+    <view class="p space">2. 获得加一次元APP开屏推荐；</view>
+    <view class="p space">3. 获得动漫明星榜微博大图推荐；</view>
+    <view class="p space">4. 获得加一次元微博推荐；</view>
+    <view class="p space">5. 获得制作的动画MV30秒（需要IP方同意）</view>
+    <view class="p">周冠军：</view>
+    <view class="p space">1. 获得动漫明星榜大图推荐；</view>
+    <view class="p space">2. 获得动漫明星榜微博大图推荐；</view>
+    <view class="p space">3. 获得加一次元微博推荐</view>
+
+    <view class="h2">打榜个人福利：</view>
+    <view class="p">动漫人物周边福利：</view>
+    <view class="p spacepadding">总榜（月榜）冠军人物的打榜粉丝贡献第一名，获得该IP人物周边大礼包，价值大于1000元的周边福利一份；</view>
+    <view class="p spacepadding">周榜冠军人物的打榜粉丝贡献第一名，获得随机周边福利一份200元以内；</view>
+    <view class="p">动漫人物独有称号福利：</view>
+    <view class="p spacepadding">周榜冠军人物的打榜粉丝贡献第一名，获得自定义称号特权福利。</view>
+
+    <view class="h2" style="padding-top: 50rpx;">起始时间：2018年10月1日0:00，每月一期；</view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {util} from '../js/util'
+
+  export default class DabangGuize extends wepy.page {
+    config = {
+      navigationBarTitleText: '打榜规则',
+    }
+
+    data = {
+    }
+
+    methods = {
+      
+    }
+  }
+</script>

@@ -1,0 +1,623 @@
+<style lang="less">
+@color: #303030;
+@activecolor: #419BFF;
+@fontsize32: 32rpx;
+@fontsize30: 30rpx;
+@fontsize28: 28rpx;
+@fontsize26: 26rpx;
+page{ 
+  color: @color; 
+ }
+.cont-header{ 
+  background-color: #FB5488;
+  color: #fff; 
+  padding: 20rpx 0 30rpx;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  .bg1{ position: absolute; top: 70rpx; left: 50rpx; width: 18%; transform: rotateY(180deg); transform-origin: center; }
+  .bg2{ position: absolute; top: 70rpx; right: 50rpx; width: 18%; }
+  .rank{ 
+    width: 150rpx; 
+    margin: auto;
+    position: relative;
+    z-index: 2;
+    .icon{ width: 100%; }
+    .text{ 
+      position: absolute; 
+      top: 0; 
+      left: 0;
+      color: #fff;
+      width: 100%;
+      .s1{ display: block; font-size: 24rpx; padding: 10rpx 0 0; }
+      .s2{ display: block; font-size: 46rpx; }
+    }
+  }
+  .row1{
+    position: relative;
+    width: 33%; 
+    margin: auto;
+    margin-top: -30rpx;
+    overflow: hidden;
+    .img{ 
+      width: 100%;
+    }
+  }
+  .row2{
+    position: relative;
+    z-index: 2;
+    padding: 15rpx 0 0;
+    font-size: 40rpx;   
+  }
+  .row3{
+    padding: 15rpx 5rpx 0;
+    font-size: @fontsize28;
+  }
+}
+
+.cont-1{
+  padding: 40rpx 30rpx;
+  background-color: #9336d9;
+  color: #fff;
+  position: relative;
+  .bg{     
+    position: absolute;
+    left: 0; 
+    top: 0;
+    width: 100%;
+    z-index: 2;
+  }
+  .bodyer{
+    position: relative;
+    z-index: 2;
+    display: flex; 
+    align-items: center;
+  }
+  .row1{ 
+    .touxiang{
+      width: 130rpx; 
+      height: 130rpx;
+      margin-right: 30rpx; 
+      border: solid 2rpx @activecolor;
+      border-radius: 50%;
+      overflow: hidden;
+      .icon{ display: block; width: 100%; }
+    }
+    .nickbox{ 
+      display: inline-block;
+      .text{ font-size: @fontsize26; }
+    }
+  }
+  .row2{
+    flex: 1;
+    margin-top: -40rpx;
+    padding: 0 0 0 30rpx;
+    .s1{ 
+      font-size: 40rpx;
+      padding: 0 0 20rpx;
+    }
+    .s2{ 
+      font-size: @fontsize28;
+    }
+  }
+  .btn{ display: block; width: 160rpx; }
+}
+
+.cont-2{ 
+  background-color: #FFB533;
+  color: #fff;
+  padding: 20rpx 0;
+  font-size: @fontsize28;
+  text-align: center;
+  .t1{ display: inline-block; }
+  .t2{ display: inline-block; margin-left: 50rpx; }
+}
+
+.cont-3{ 
+  padding: 20rpx 20rpx 0;
+  .tabs{ 
+    padding: 10rpx 0;
+    text-align: center;
+    font-size: 0;
+    color: #fff;
+    .tab{
+      display: inline-block;
+      width: 40%;
+      vertical-align: top;
+      font-size: @fontsize30;
+      height: 75rpx;
+      line-height: 75rpx;
+      margin: 0 18rpx;
+      background-color: #FE9FBB;
+      transform: skew(-30deg);
+      text{
+        display: block;
+        transform: skew(30deg);
+      }
+    }
+    .active{
+      background-color: #FB5488;
+    }
+  }
+  .list{ 
+    display: flex; 
+    align-items: center;
+    padding: 20rpx 40rpx;
+    position: relative;
+    .t1{ 
+      width: 70rpx; 
+      text-align: center;
+      color: #FB5488;
+      font-size: 34rpx; 
+      margin-right: 40rpx;
+      .icon{ display: block; width: 100%; }
+      text{ 
+        display: block;
+      }
+    }
+    .t2{ 
+      width: 110rpx;
+      height: 110rpx;
+      border: solid 2rpx #FB5488;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 30rpx;
+      .img{ width: 100%; }
+    }
+    .t3{
+      font-size: @fontsize30; 
+      text{ 
+        display: block; 
+        color: #000;
+      }
+      .s2{ padding: 6rpx 0 0; }
+    }
+    &:nth-child(1){
+      .t1{ 
+        text{ display: none; } 
+      }
+    }
+    &:nth-child(2){
+      .t1{ 
+        text{ display: none; } 
+      }
+    }
+    &:nth-child(3){
+      .t1{ 
+        text{ display: none; } 
+      }
+    }
+  }
+  .no-data{ text-align: center; padding: 100rpx 0; font-size: @fontsize30; }
+}
+
+.cont-4{ 
+  margin: 20rpx 0 0 -20rpx;
+  background-color: #EAEAEA;
+  padding: 20rpx 20rpx;
+  text-align: center;
+  box-sizing: content-box;
+  width: 100%;
+  .btn{ 
+    margin-top: 10rpx;
+    display: inline-block; width: 45%;
+    .bg{ display: block; width: 100%; }
+  }
+  .t1{ font-size: @fontsize28; color: #B53074; margin-top: 15rpx; }
+}
+
+.img-chai{ position: fixed; right: 0rpx; bottom: 230rpx; width: 100rpx; }
+
+.modalDabang{ 
+  .container{ 
+    border-radius: 8rpx;
+    .m-header{ 
+      border-radius: 8rpx 8rpx 0 0;
+      display: flex;
+      align-items: center;
+      background-color: #FEF7E2;
+      padding: 28rpx 15rpx 15rpx; 
+      .img{ width: 180rpx; }
+      text{ font-size: 34rpx; color:@color; margin-left: 40rpx; }
+    }
+    .m-bodyer{ 
+      display: flex;
+      flex-wrap: wrap;
+      padding: 30rpx 3% 0;
+      .list{ 
+        border: solid 2rpx @activecolor;
+        border-radius: 6rpx;
+        width: 27%;
+        margin: 3% 3%;
+        padding: 6rpx 0 10rpx;
+        text-align: center;
+        .img{ width: 70%; display: block; margin-left: 10%; }
+        text{ display: block; font-size: @fontsize28; color: #FFD200; }
+      }
+    }
+    .m-footer{
+      padding: 15rpx 6% 30rpx;
+      font-size: @fontsize26;
+      text{ color: @activecolor; }
+    }
+    .close{ position: absolute; top: -25rpx; right: -25rpx; width:25rpx; background-color: #fff; border-radius:50%; padding: 15rpx; }
+  }
+}
+
+.modalSuccess{ 
+  .container{ 
+    text-align: center; 
+    .m-title{ padding: 34rpx 0 0; font-size: @fontsize32; }
+    .t1{ 
+      padding: 46rpx 0 0; 
+      font-size: @fontsize32; 
+      text{ font-size: 40rpx; color: @activecolor; display: inline-block; margin-right:10rpx; }
+    }
+    .t2{ padding: 46rpx 0 0; }
+    .btns{ 
+      padding: 46rpx 40rpx 40rpx; 
+      .btn{ font-size: 30rpx; } 
+    }
+  }
+}
+
+.modalFail{ 
+  .container{ 
+    text-align: center; 
+    .m-title{ 
+      padding: 34rpx 0 0;
+      image{ width: 110rpx; }
+    }
+    .t1{ 
+      padding: 40rpx 0 0; 
+      font-size: 34rpx; 
+    }
+    .btns{ 
+      padding: 46rpx 40rpx 40rpx; 
+      .btn{ font-size: 30rpx; } 
+    }
+  }
+}
+</style>
+
+<template>
+
+    <!-- 弹出打榜窗口 -->
+    <view class="modal modalDabang" hidden="{{isShowModalDabang}}">
+      <view class="container">
+        <image mode='widthFix' class="close" src="../images/close.png" @tap="closeModalDabang"/>
+        <view class="m-header">
+          <image mode='widthFix' class="img" src="../images/bg3.png"/>
+          <text>为{{name}}打榜</text>
+        </view>
+        <view class="m-bodyer">
+          <view class="list" wx:for="{{dabangArray}}" wx:key="{{index}}" @tap="dabangFn({{item}})">
+            <image mode='widthFix' class="img" src="../images/bg4.png"/>
+            <text>{{item}}星能</text>
+          </view>
+        </view>
+        <view class="m-footer">剩余<text>{{myStarenergyNumber}}</text>星能</view>
+      </view>
+    </view>
+
+    <!-- 打榜成功窗口 -->
+    <view class="modal modalSuccess" hidden="{{isShowModalSuccess}}">
+      <view class="container">
+        <view class="m-title">守护成功</view>
+        <view class="t1"><text>+{{xiaohaoNumber}}</text>星能值</view>
+        <view class="t2">当前排名：{{currentRank}}</view>
+        <view class="btns"><text class="btn" @tap="closeModalSuccess">我知道了！</text></view>
+      </view>
+    </view>
+
+    <!-- 打榜失败窗口 -->
+    <view class="modal modalFail" hidden="{{isShowModalFail}}">
+      <view class="container">
+        <view class="m-title"><image mode='widthFix' class="fail" src="../images/fail.png"/></view>
+        <view class="t1">星能不足！</view>
+        <view class="btns"><text class="btn" @tap="shareXingneng">分享红包得星能</text></view>
+      </view>
+    </view>
+
+    <view class="cont-header">
+      <image mode='widthFix' class="bg1" src="../images/bg7.png"/>
+      <image mode='widthFix' class="bg2" src="../images/bg7.png"/>
+      <view class="rank">
+        <image mode='widthFix' class="icon" src="../images/icon3.png"/>
+        <view class="text">
+          <text class="s1">排名</text>
+          <text class="s2">{{rowNum}}</text>
+        </view>
+      </view>
+      <view class="row1"><image mode='widthFix' class="img" src="{{imageUrl}}"/></view>
+      <view class="row2">{{name}}</view>
+      <view class="row3"><view class="t1">本月星能值：<text>{{starNum}}</text></view></view>
+    </view>
+
+    <view class='cont-2'>
+      <view class="t1"><text>{{fansNum}}</text> 位粉丝正在守护</view>
+      <view class="t2">我的排名：<text>{{myRankNum}}</text></view>
+    </view>
+
+    <view class='cont-1'>
+      <image mode='widthFix' class="bg" src="../images/bg6.png"/>      
+      <view class="bodyer">
+        <view class="row1">
+          <view class="touxiang"><open-data class="icon" type="userAvatarUrl"></open-data></view>
+          <view class="nickbox"><open-data class="text" type="userNickName"></open-data></view>
+        </view>
+        <view class="row2">
+            <view class="s1">今日贡献<text> {{todayGongxian}} </text>星能</view>
+            <view class="s2">累计守护<text>{{signNumber}}</text>天，贡献<text>{{totalGongxian}}</text>星能</view>
+        </view>
+        <image class="btn" mode='widthFix' src="../images/btn2.png" @tap="linkInvitingFriends"/>
+      </view>
+    </view>
+
+    <view class='cont-3'>
+      <view class="tabs">
+        <view class="tab {{switchRankTab==1?'active':''}}" @tap="switchRank(1)"><text>粉丝守护总榜</text></view>
+        <view class="tab {{switchRankTab==2?'active':''}}" @tap="switchRank(2)"><text>粉丝贡献月榜</text></view>
+      </view>
+
+      <view class='list' wx:for="{{fansRankArray}}" wx:key="">
+        <view class="t1">
+          <image mode='widthFix' class="icon" src="../images/icon4.png" wx:if="{{index==0}}"/>
+          <image mode='widthFix' class="icon" src="../images/icon5.png" wx:if="{{index==1}}"/>
+          <image mode='widthFix' class="icon" src="../images/icon6.png" wx:if="{{index==2}}"/>
+          <text wx:if="{{index>2}}">{{index+1}}</text>
+        </view>
+        <view class="t2"><image mode='widthFix' class="img" src="{{item.avatar}}"/></view>
+        <view class="t3">
+          <text class="s1">{{item.name}}</text>
+          <text class="s2">贡献星能值：{{item.starNum}}</text>
+        </view>
+      </view>
+      <view class='no-data' wx:if="{{fansRankArray.length<1||!fansRankArray}}">暂无粉丝守护</view>
+    </view>
+
+    <view class='cont-4'>
+        <view class="btn" @tap="showModalDabangFn"><image mode='widthFix' class="bg" src="../images/btn1.png"/></view>
+        <view class="t1" wx:if="{{rowNum!=1&&rowNum!='---'}}">{{name}}还有{{exceed.starNum-starNum+1}}星能值超过{{exceed.name}}</view>
+        <view class="t1" wx:if="{{rowNum==1}}">我是第一名</view>
+        <view class="t1" wx:if="{{rowNum=='---'}}">暂无数据</view>
+      </view>
+    </view>
+
+    <image mode='widthFix' class="img-chai" src="../images/chai1.png" @tap="linkMyStarenergyRed" wx:if="{{isChaiState==0}}"/>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {util} from '../js/util'
+
+  export default class Dabang extends wepy.page {
+    config = {
+      navigationBarTitleText: '江户川柯南',
+      navigationBarBackgroundColor: '#FB5488',
+      navigationBarTextStyle: 'white'  
+    }
+
+    data = {
+      noHongbao: false, //false：没有星能红包，true：有星能红包
+      isShowModalDabang: true,
+      isShowModalSuccess: true,
+      isShowModalFail: true,
+      myStarenergyNumber: 0,
+      dabangArray: [5,10,15,20,30,50],
+      workId: '',
+      name: '---',//被打榜人物的名称
+      imageUrl: '',//被打榜人物的头像
+      region: '',//国漫、日漫
+      todayGongxian: '---',//今日贡献值
+      totalGongxian: '---',//总贡献值
+      signNumber: '---',//累计签到天数
+      currentRank: '',//当前排名
+      xiaohaoNumber: '',//打榜用去多少星能值
+      fansNum: '---',//被打榜的人物粉丝数量
+      myRankNum: '---',//我的排名
+      starNum: '---',//被打榜的人物本月星能值
+      rowNum: '---',//被打榜的人物本月排名
+      fansRankArray: [],//列表
+      switchRankTab: 1,//tab切换高亮
+      exceed: {},//超过的人物信息
+    }
+
+    methods = {
+        linkInvitingFriends(){
+          let workId = this.workId;
+          let region = this.region;
+          let options = 'workId=' + workId + '&region=' + region;
+          wx.navigateTo({
+            url: 'inviteFriend?'+options
+          });
+        },
+        closeModalDabang(){
+          this.isShowModalDabang = true;
+        },
+        //弹出打榜窗口，同时获取我的星能值
+        showModalDabangFn(){
+          this.isShowModalDabang = false;
+          this.getStarenergyNumber();
+        },
+        //正式打榜
+        dabangFn(number){
+          let that = this;
+          //console.log(number);
+          let userInfo = wx.getStorageSync('userInfo');
+          let params = {
+              url: 'program/rank/addStarNum',
+              data: {
+                uId: userInfo.uId,
+                workId: this.workId,
+                region: this.region,
+                starNum: number,
+                type: 2,
+              }
+          };
+          util.$http(params).then(response=>{
+            //console.log(response);
+            if(response.statusCode==200&&response.data.code=='0000'){
+              this.xiaohaoNumber = number;
+              this.currentRank = response.data.data;
+              this.isShowModalDabang = true;
+              this.isShowModalSuccess = false;
+              that.setData({
+                xiaohaoNumber: number,
+                currentRank: this.currentRank,
+                isShowModalDabang: true,
+                isShowModalSuccess: false
+              });
+              console.log('刷新1');
+              this.getRoleRankInfo(1);
+            }else{
+               wx.showModal({
+                  title: '打榜失败',
+                  content: response.data.msg,
+                  showCancel: false,
+                  confirmText: '我知道了',
+                  confirmColor: '#f00',
+                  success(){
+                    //that.isShowModalDabang = true;
+                    //that.setData({isShowModalDabang: true});
+                  }
+              }); 
+            }
+          });
+
+        },
+        closeModalSuccess(){
+          this.isShowModalSuccess = true;
+        },
+        shareXingneng(){
+
+        },
+        switchRank(index){
+          this.switchRankTab = index;
+          this.setData({switchRankTab: this.switchRankTab});
+          this.getRoleRankInfo(index);
+        },
+        linkMyStarenergyRed(){
+            wx.navigateTo({
+              url: 'myStarenergyRed'
+            });
+        }
+
+    }
+
+    //获取我还剩多少星能值
+    getStarenergyNumber(){
+        let userInfo = wx.getStorageSync('userInfo');
+        let params = {
+            url: 'program/user/myStarNum',
+            data: {
+              uId: userInfo.uId,
+            }
+        };
+        util.$http(params).then(response=>{
+          //console.log(response);
+          if(response.statusCode==200&&response.data.code=='0000'){
+            this.myStarenergyNumber = response.data.data;
+            this.setData({myStarenergyNumber: this.myStarenergyNumber});
+          }
+        });
+    }
+
+    //获取排名列表
+    getRoleRankInfo(type){
+        let userInfo = wx.getStorageSync('userInfo');
+        let params = {
+            url: 'program/rank/getRoleRankInfo',
+            data: {
+              uId: userInfo.uId,
+              workId: this.workId,
+              region: this.region,
+              type: type,//1:总榜，2：月榜
+            }
+        };
+        util.$http(params).then(response=>{
+          //console.log(response);
+          if(response.statusCode==200&&response.data.code=='0000'){
+            this.todayGongxian = response.data.data.userInfo.todayNum;
+            this.totalGongxian = response.data.data.userInfo.totalNum;
+            this.signNumber = response.data.data.userInfo.sign;
+
+            this.fansNum = response.data.data.fansNum;//被打榜的人物粉丝数量
+            this.myRankNum = response.data.data.myRankNum;//我的排名
+            this.starNum = response.data.data.roleDetails?response.data.data.roleDetails.starNum:'---';//被打榜的人物本月星能值
+            this.rowNum = response.data.data.roleDetails?response.data.data.roleDetails.rowNum:'---';//被打榜的人物本月排名
+
+            this.fansRankArray = response.data.data.fansRank;
+            this.exceed = response.data.data.exceed;
+
+            this.setData({
+              todayGongxian: this.todayGongxian,
+              totalGongxian: this.totalGongxian,
+              signNumber: this.signNumber,
+              fansNum: this.fansNum,
+              myRankNum: this.myRankNum,
+              starNum: this.starNum,
+              rowNum: this.rowNum,
+              fansRankArray: this.fansRankArray,
+              exceed: this.exceed,
+            });
+            //console.log(this.todayGongxian);
+            //console.log(this.totalGongxian);
+            //console.log(this.signNumber);
+          }
+        });
+    }
+
+    //判断是否有星能红包，如果有就跳转我的星能红包页
+    isHasStarenergyRed(){
+        // let userInfo = wx.getStorageSync('userInfo');
+        // let params = {
+        //     url: 'program/user/getMyStarNumList',
+        //     data: {
+        //       uId: userInfo.uId,
+        //       source: 1, 
+        //       type: 2,//1：星能红包
+        //     }
+        // };
+        // util.$http(params).then(response=>{
+        //   //console.log(response);
+        //   if(response.statusCode==200&&response.data.code=='8006'){//如果没有星能红包
+        //       this.noHongbao = false; 
+        //       this.setData({noHongbao: this.noHongbao});
+        //   }else if(response.statusCode==200&&response.data.code=='0000'){//如果没有星能红包
+        //       this.noHongbao = true; 
+        //       this.setData({noHongbao: this.noHongbao});
+        //   }
+        // });
+    }
+
+    onLoad(options) {
+      //console.log('刷新2');
+      //console.log(options);
+      let workId = options.workId;
+      let name = options.name;
+      let imageUrl = options.imageUrl;
+      let region = options.region;
+      //console.log(workId);
+      //console.log(name);
+      //console.log(imageUrl);
+      this.workId = workId;
+      this.name = name;
+      this.imageUrl = imageUrl;
+      this.region = region;
+      this.setData({
+        workId: this.workId,
+        name: this.name,
+        imageUrl: this.imageUrl,
+        region: this.region,
+      });
+
+      wx.setNavigationBarTitle({title: name})
+
+      this.getRoleRankInfo(1);
+      this.isHasStarenergyRed();
+    }
+
+  }
+</script>

@@ -1,0 +1,300 @@
+<style lang="less">
+@color: #303030;
+@fontsize30: 30rpx;
+@fontsize26: 26rpx;
+page{ padding: 20rpx 20rpx 0; background-color: #eee; color: @color; }
+.cont-header{ 
+  display: flex; 
+  align-items: center;
+  padding: 40rpx 60rpx;
+  background-color: #fff;
+  image{ width: 160rpx; height: 160rpx; margin-right: 40rpx; }
+  .imgbox{ 
+    width: 150rpx; height: 150rpx; margin-right: 30rpx; border-radius: 50%; overflow: hidden;
+    .icon{ display: block; width: 100%; }
+  }
+  .nickbox{ 
+    .text{ font-size: @fontsize30; color: @color; }
+  }
+}
+
+.cont-1{
+  display: flex;
+  background-color: #fff;
+  border-radius: 6rpx;
+  margin-top: 20rpx;
+  padding: 34rpx 0;
+  .list{ 
+    flex: 1; 
+    text-align: center;
+    .icon{ width: 90rpx; }
+    .text{ display: block; font-size: @fontsize30; }
+  }
+}
+
+.cont-2{ 
+  background-color: #fff;
+  border-radius: 6rpx;
+  margin-top: 20rpx;
+  .list{
+    display: flex;
+    align-items: center;
+    padding: 30rpx 50rpx 30rpx 60rpx;
+    font-size: 30rpx;
+    color: #303030;
+    border-bottom: solid 1rpx #f3f3f3;
+    .icon{ width: 34rpx; margin-right:20rpx; }
+    .col-1{ width: 50%; }
+    .col-2{ flex: 1; color: #0fb6f7; text-align: right; }
+    .icon-arrow{ display: inline-block; width: 30rpx; height: 30rpx; }
+  }
+}
+
+.modalRedXJ{ 
+  .container{ 
+    .t2{ padding: 150rpx 0 100rpx; }
+    .imgbox{ 
+      width: 150rpx; height: 150rpx; margin-right: 30rpx; overflow: hidden;
+      .icon{ display: block; width: 100%; }
+    }
+  }
+}
+.modalRedXJKai{ 
+  .container{ 
+     padding: 160rpx 0 80rpx;
+     .touxiang{
+      width: 150rpx; 
+      height: 150rpx;
+      background: none;
+      .icon{ display: block; width: 100%; }
+    }
+    .t1{ padding: 50rpx 0 0; }
+    .t2{ 
+      padding: 10rpx 0 100rpx; 
+      font-size: @fontsize26;
+      font-weight: bold;
+      text{ display: inline-block; font-size: 38rpx; margin-right: 10rpx;}
+    }
+    .msg{ font-size: 24rpx; position:relative; z-index:2; padding: 20rpx 0 0; }
+    .btns{ padding: 60rpx 80rpx 0; }
+  }
+}
+</style>
+
+<template>
+
+    <!-- 现金红包弹窗 -->
+    <view class="modal modalRedXJ" hidden="{{isShowModalRedXJ}}">
+      <view class="container">
+        <image mode='widthFix' class="close" src="../images/close1.png" @tap="closeModalRedXJFn"/>
+        <view class="t2">收到一个现金红包</view>
+        <view class="btns"><image mode='widthFix' class="img" src="../images/kai.png" @tap="kaiRedXJFn"/></view>
+        <image mode='widthFix' class="bg" src="../images/hong1.png"/>
+      </view>
+    </view>
+    <!-- 开现金红包弹窗 -->
+    <view class="modal modalRedXJ modalRedXJKai" hidden="{{isShowModalRedXJKai}}">
+      <view class="container">
+        <image mode='widthFix' class="close" src="../images/close1.png" @tap="closeModalRedXJKaiFn"/>
+        <!-- <view class="touxiang"><image mode='widthFix' class="img" src="../images/bg1.png"/></view> -->
+        <view class="touxiang"><open-data class="icon" type="userAvatarUrl"></open-data></view>
+        <view class="t1">收到一个红包</view>
+        <view class="t2"><text>10</text> 元</view>
+        <view class="btns"><text class="btn" @tap="linkMyWeixinRed1">邀请好友助力</text></view>
+        <!-- <view class="msg">2个好友助力，直接微信红包提现</view> -->
+        <image mode='widthFix' class="bg" src="../images/hong1.png"/>
+      </view>
+    </view>
+
+
+    <view class="cont-header">
+      <!-- <image mode='widthFix' class="icon-arrow" src="../images/bg1.png"/> -->
+      <view class="imgbox"><open-data class="icon" type="userAvatarUrl"></open-data></view>
+      <!-- <text>用户名</text> -->
+      <view class="nickbox"><open-data class="text" type="userNickName"></open-data></view>
+    </view>
+
+    <view class='cont-1'>
+        <view class='list' @tap="linkMyStarenergyRed">
+            <image class="icon" mode='widthFix' src="../images/icon-hongbao1.png"/>
+            <text class="text">星能红包</text>
+        </view>
+        <view class='list' @tap="linkSignin">
+            <image class="icon" mode='widthFix' src="../images/icon-hongbao2.png"/>
+            <text class="text">签到红包</text>
+        </view>
+        <view class='list' @tap="linkMyWeixinRed">
+            <image class="icon" mode='widthFix' src="../images/icon-hongbao3.png"/>
+            <text class="text">现金红包</text>
+        </view>
+    </view>
+
+    <view class='cont-2'>
+        <view class='list' @tap="linkMyStarenergy">
+            <image class="icon" mode='widthFix' src="../images/icon-xing.png"/>
+            <text class="col-1">我的星能</text>
+            <view class="col-2"><image mode='widthFix' class="icon-arrow" src="../images/icon-arrow1.png"/></view>
+        </view>
+        <view class='list' @tap="linkKefu">
+            <image class="icon" mode='widthFix' src="../images/icon-kefu.png"/>
+            <text class="col-1">客服中心</text>
+            <view class="col-2"><image mode='widthFix' class="icon-arrow" src="../images/icon-arrow1.png"/></view>
+        </view>
+    </view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {util} from '../js/util'
+
+  export default class Me extends wepy.page {
+    config = {
+      navigationBarTitleText: '我的',
+    }
+
+    data = {
+      isShowModalRedXJ: true,
+      isShowModalRedXJKai: true,
+      userInfo: '',
+    }
+
+    methods = {
+      //跳转星能红包
+      linkMyStarenergyRed(){   
+        let userInfo = wx.getStorageSync('userInfo');
+        let params = {
+            url: 'program/user/getMyStarNumList',
+            data: {
+              uId: userInfo.uId,
+              source: 1, 
+              type: 2,//1：星能红包
+            }
+        };
+        util.$http(params).then(response=>{
+          //console.log(response);
+          if(response.statusCode==200&&response.data.code=='8006'){
+              wx.showModal({
+                  title: '',
+                  content: '您还没有星能红包',
+                  showCancel: false,
+                  confirmText: '我知道了',
+              });
+          }else if(response.statusCode==200&&response.data.code=='0000'){
+              wx.navigateTo({
+                url: 'myStarenergyRed'
+              });
+          }
+        });
+      },
+      //跳转微信红包
+      linkMyWeixinRed(){
+        // let userInfo = wx.getStorageSync('userInfo');
+        // let params = {
+        //     url: 'program/user/myMoneyList',
+        //     data: {
+        //       uId: userInfo.uId,
+        //       //redEnvelopeId: money.redEnvelopeId,
+        //       source: 1, 
+        //       type: 1,//1：现金红包
+        //     }
+        // };
+        // util.$http(params).then(response=>{
+        //   console.log(response);
+        //   if(response.statusCode==200&&response.data.code=='0000'){
+        //     //this.beginTime = response.data.data.beginTime;
+        //       if(response.data.data.state==0){
+        //         this.isShowModalRedXJ = false;
+        //         this.setData({isShowModalRedXJ: false});
+        //       }else{
+        //         wx.navigateTo({
+        //           url: 'myWeixinRed'
+        //         });
+        //       }
+        //   }
+        // });
+
+
+        let money = wx.getStorageSync('money');
+        if(money&&money.state==0){//0：代表未拆
+          this.isShowModalRedXJ = false;
+          this.setData({isShowModalRedXJ: false});
+        }else{
+          wx.navigateTo({
+            url: 'myWeixinRed'
+          });
+        }
+      },
+      //拆现金红包
+      kaiRedXJFn(){
+        let money = wx.getStorageSync('money');
+        console.log(money);
+        let params = {
+            url: 'program/user/clickRedEnvelopes',
+            data: {
+              uId: this.userInfo.uId,
+              redEnvelopeId: money.redEnvelopeId,
+              source: 1,
+            }
+        };
+        util.$http(params).then(response=>{
+          console.log(response);
+          if(response.statusCode==200&&response.data.code=='0000'){
+            //this.isShowModalRedXJ = true;
+            //this.isShowModalRedXJKai = false;
+              this.isShowModalRedXJ = true;
+              this.isShowModalRedXJKai = false;
+              this.setData({
+                isShowModalRedXJ: true,
+                isShowModalRedXJKai: false,
+              });
+              //拆完红包，修改红包状态
+              let money = wx.getStorageSync('money');
+              money.state = 1;
+              wx.setStorageSync('money',money);
+          }
+        });
+      },
+      //邀请好友开现金红包
+      linkMyWeixinRed1(){
+        this.isShowModalRedXJKai = true;
+        wx.navigateTo({
+          url: 'myWeixinRed'
+        });
+      },
+      //关闭拆红包窗口
+      closeModalRedXJFn(){
+        this.isShowModalRedXJ = true;
+      },
+      //关闭邀请好友开现金红包
+      closeModalRedXJKaiFn(){
+        this.isShowModalRedXJKai = true;
+      },
+      //跳转签到
+      linkSignin(){
+        wx.navigateTo({
+          url: 'signin'
+        });
+      },
+      //跳转我的星能记录页面
+      linkMyStarenergy(){
+          wx.navigateTo({
+            url: 'myStarenergy'
+          });
+      },
+      linkKefu(){
+        wx.navigateTo({
+          url: 'kefu'
+        });
+      }
+    }
+
+    onLoad() {
+      //let userInfo = this.$parent.globalData.userInfo;
+      let userInfo = wx.getStorageSync('userInfo');
+      this.userInfo = userInfo;
+      this.setData({ userInfo: this.userInfo });
+    }
+
+  }
+</script>

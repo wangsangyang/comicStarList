@@ -1,0 +1,338 @@
+<style lang="less">
+@color: #303030;
+@activecolor: #419BFF;
+@fontsize32: 32rpx;
+@fontsize30: 30rpx;
+@fontsize28: 28rpx;
+@fontsize26: 26rpx;
+page{ 
+  padding: 20rpx; 
+  background-color: #f3f3f3;
+  color: @color; 
+ }
+.cont-header{ 
+  background-color: #fff;
+  padding: 45rpx 0 35rpx;
+  text-align: center;
+  position: relative;
+  .tag{ width: 86rpx; position: absolute; top: 26rpx; left: 50%; margin: 0 0 0 50rpx; }
+  .touxiang{
+    position: relative; 
+    z-index: 2;
+    background-color: #fff;
+    width: 150rpx; 
+    height: 150rpx;
+    margin: auto;
+    border: solid 2rpx @activecolor;
+    border-radius: 50%;
+    overflow: hidden;
+    .icon{ display: block; width: 100%; }
+  }
+  .nickbox{ 
+    padding: 30rpx 0 0;
+    font-size: @fontsize30;
+    .text{ font-size: @fontsize30; }
+  }
+  .row3{
+    padding: 12rpx 5rpx 0;
+    font-size: @fontsize26;
+    .s1{
+      display: inline-block;
+      color: #D85940;
+      font-size: 38rpx;
+      font-weight: bold;
+      margin-right: 12rpx;
+    }
+    .s2{ color: #696969; }
+  }
+  .row4{
+    padding: 26rpx 0 0;
+    font-size: @fontsize26;
+    color: #696969;
+  }
+}
+
+.cont-record{ 
+  padding: 20rpx 0 0 40rpx;
+  .bodyer{
+    .col-1{ font-size: @fontsize30; color: #696969; padding: 50rpx 30rpx 0 0; white-space: nowrap; }
+    .col-2{ 
+      display: flex;
+      flex-wrap: wrap;
+      .list{
+        width: 100rpx;
+        height: 100rpx;
+        margin: 20rpx 30rpx 0 0;
+        border: solid 2rpx @activecolor;
+        border-radius: 50%;
+        overflow: hidden;
+        text-align: center;
+        .img{ display: inline-block; width: 100%; }
+        &::before{
+          content: '';
+          display: inline-block;
+          width: 0;
+          height: 100%;
+          vertical-align: middle;
+        }
+      }
+      .add{
+        .img{ width: 55%; vertical-align: middle; }
+      }
+    }
+  }
+  
+}
+
+.cont-1{ font-size: @fontsize26; color: #696969; padding: 25rpx 40rpx 0; }
+.cont-2{ font-size: @fontsize26; color: #696969; padding: 20rpx 40rpx 0; text-align: center; }
+
+.cont-btn{
+  padding: 20rpx 0 0;
+  font-size: @fontsize26;
+  color: #696969; 
+  text-align: center;
+  checkbox-group{ 
+    checkbox{ 
+      display: inline-block; transform:scale(0.55); vertical-align: top; margin: -6rpx -4rpx 0 0;
+      .wx-checkbox-input{ background-color: none; border: solid 1px #aaa; }
+      .wx-checkbox-input.wx-checkbox-input-checked{ 
+        background-color: @activecolor; border: solid 1px @activecolor; 
+        &::before{ font-size:55rpx; color:#fff; }
+      }
+    }
+  }
+  .btns{ padding: 150rpx 100rpx 0; }
+  .disable{ background-color: #ccc; }
+}
+
+.cont-guize{
+  position: fixed;
+  z-index: 3;
+  right: 0; 
+  top: 70rpx;
+  display: flex;
+  align-items: center;
+  box-shadow: 4rpx 4rpx 8rpx #aaa;
+  border-radius: 40rpx 0 0 40rpx;
+  padding: 12rpx 18rpx;
+  background-color: #fff;
+  .icon{ width: 30rpx; margin-right: 14rpx; }
+  text{ font-size: @fontsize28; }
+}
+
+.modalGuize{ 
+  .container{ 
+    padding: 0 40rpx;
+    .m-title{ padding: 34rpx 0 0; font-size: @fontsize30; text-align: center; }
+    .t1{ 
+      padding: 16rpx 0 0; 
+      font-size: @fontsize26; 
+      color: #696969;
+    }
+    .btns{ 
+      padding: 46rpx 0 40rpx; 
+      .btn{ font-size: 30rpx; } 
+    }
+  }
+}
+
+</style>
+
+<template>
+
+    <!-- 规则弹窗 -->
+    <view class="modal modalGuize" hidden="{{isShowModalGuize}}">
+      <view class="container">
+        <view class="m-title">活动规则</view>
+        <view class="t1">现金红包是代金券，可以兑换周边礼品；</view>
+        <view class="t1">获得红包后，邀请好友立即获得。</view>
+        <view class="t1">邀请好友未使用过动漫明星榜的好友才可以获得红包。</view>
+        <view class="t1">红包有限期24小时，24小时后自动失效。</view>
+        <view class="t1">代金券有效期2018年11月30日。</view>
+        <view class="t1">兑换奖品10.20日开放兑换周边页面。</view>
+        <view class="btns"><text class="btn" @tap="closeModalGuizeFn">我知道了！</text></view>
+      </view>
+    </view>
+
+    <!-- 弹窗兑换奖品 -->
+    <view class="modal modalGuize" hidden="{{isModalDuihuan}}">
+      <view class="container">
+        <view class="m-title">兑换规则</view>
+        <view class="t1">10元代金券是动漫明星榜兑换礼品的虚拟积分。</view>
+        <view class="t1">有效期2018年11月30日。</view>
+        <view class="t1">兑换周边礼品日期：2018年10月31日。</view>
+        <view class="t1">动漫周边10元代金券可以兑换相应的周边礼品。</view>
+        <view class="t1">目前周边礼品有玩具手办、模型、抱枕图书</view>
+        <view class="btns"><text class="btn" @tap="closeModalDuihuan">我知道了！</text></view>
+      </view>
+    </view>
+
+    <view class="cont-guize" @tap="showModalGuizeFn">
+      <image mode='widthFix' class="icon" src="../images/icon1.png"/>
+      <text>活动规则</text>
+    </view>
+
+    <view class="cont-header">
+      <image mode='widthFix' class="tag" src="../images/icon2.png"/>
+      <view class="touxiang"><open-data class="icon" type="userAvatarUrl"></open-data></view>
+      <view class="nickbox"><open-data class="text" type="userNickName"></open-data></view>
+<!--       
+      <view class="row1">
+        <image mode='widthFix' class="img" src="../images/bg1.png"/>
+      </view> 
+      <view class="row2">性感邮包</view>
+    -->
+      <view class="row3"><text class="s1">10</text><text class="s2">元代金券</text></view>
+      <!-- <view class="row4">红包有效期24小时</view> -->
+      <view class="row4" wx:if="{{!isGuoqiRed&&friendsArray.length<10}}">{{daojishi}}后过期</view>
+    </view>
+
+    <view class="cont-record">
+      <view class="bodyer">
+        <view class="col-1">邀请记录</view>
+        <view class="col-2">
+          <view class="list" wx:for="{{friendsArray}}" wx:key=""><image mode='widthFix' class="img" src="{{item}}"/></view>
+          <view class="list add" wx:if="{{friendsArray.length<10}}"><image mode='widthFix' class="img" src="../images/icon-plus.png"/></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="cont-1" wx:if="{{friendsArray.length<10&&!isGuoqiRed}}">还需要{{10-friendsArray.length}}个好友获得10元代金券</view>
+    <view class="cont-1" wx:if="{{friendsArray.length>=10}}">10元代金券已获得</view>
+
+    <view class="cont-btn">
+      <view class="btns">
+        <button class='btn' open-type="share" wx:if="{{!isGuoqiRed}}">邀请好友助力</button> 
+        <button class='btn disable' wx:if="{{friendsArray.length<10&&isGuoqiRed}}">红包已过期</button>
+        <!-- <button class='btn' wx:if="{{isGuoqiRed>=10}}" @tap="showModalDuihuan">兑换奖品</button> -->
+        <button class='btn' wx:if="{{friendsArray.length>=10}}" @tap="showModalDuihuan">兑换奖品</button>
+      </view>
+    </view>
+
+    <view class="cont-2">邀请未使用过动漫明星榜的好友才可以获得红包</view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {util} from '../js/util'
+
+  export default class MyWeixinRed extends wepy.page {
+    config = {
+      navigationBarTitleText: '我的现金红包',
+    }
+
+    data = {   
+      isShowModalGuize: true,
+      beginTime: '',
+      daojishi: '---',
+      isGuoqiRed: '',//红包是否过期
+      friendsArray: [],//好友列表
+      redEnvelopeId: '',
+      isModalDuihuan: true,//弹窗兑换奖品
+    }
+
+    methods = {
+      //弹窗兑换奖品
+      showModalDuihuan(){
+        this.isModalDuihuan = false;
+      },
+      closeModalDuihuan(){
+        this.isModalDuihuan = true;
+        this.setData({isModalDuihuan: true});
+      },
+      showModalGuizeFn(){
+        this.isShowModalGuize = false;
+      },
+      closeModalGuizeFn(){
+        this.isShowModalGuize = true;
+      },
+      /* 分享给用户 */
+      onShareAppMessage(res) {
+          let userInfo = wx.getStorageSync('userInfo');         
+          let uId = userInfo.uId;     
+          let avatar = userInfo.avatar;  
+          let userName = userInfo.userName;    
+          let redEnvelopeId = this.redEnvelopeId;
+          //let redType = this.$parent.globalData.redType;//红包类型，2：星能红包，1：现金红包
+          let options = 'uId=' + uId + '&avatar=' + avatar + '&userName=' + userName + '&redEnvelopeId=' + redEnvelopeId + '&redType=1' + '&source=2';
+          return {
+              title: '[@你]为喜爱的动漫明星打榜，点开一起领10元现金红包～～',
+              imageUrl:'../images/share-bg-xj.png',
+              path: 'pages/friendKaiRedXJ?' + options
+          }
+      },
+    }
+
+    onLoad() {
+      //console.log(this.timer('2018-09-26 17:33:46'));
+      let userInfo = wx.getStorageSync('userInfo');
+      let money = wx.getStorageSync('money');
+      let params = {
+          url: 'program/user/myMoneyList',
+          data: {
+            uId: userInfo.uId,
+            //redEnvelopeId: money.redEnvelopeId,
+            source: 1, 
+            type: 1,//1：现金红包
+          }
+      };
+      util.$http(params).then(response=>{
+        console.log(response);
+        if(response.statusCode==200&&response.data.code=='0000'){
+          //this.beginTime = response.data.data.beginTime;
+          this.endTime = response.data.data.endTime;
+          
+          let stime = this.endTime - new Date().getTime();
+          //console.log(this.endTime - new Date().getTime());
+          if( stime<=0 ){//如果红包过期
+            this.isGuoqiRed = true;
+          }else{//红包没过期
+            this.isGuoqiRed = false;
+            this.timer(this.endTime);
+          }    
+          this.friendsArray = response.data.data.clickInfo;
+          this.redEnvelopeId = response.data.data.userInfo.redEnvelopeId;
+          this.setData({ 
+            isGuoqiRed: this.isGuoqiRed,
+            friendsArray: this.friendsArray,
+            redEnvelopeId: this.redEnvelopeId,
+          });
+        }
+      });
+
+    }
+
+    /**
+     * 入参第一个为时间字符串，第二个参数为模式选择，如果传入'day'，按天数倒计时到秒，不传值，按小时精确到秒
+     * @param timeStr
+     * @param item
+     */
+    timer(endTime){
+      //console.log(12);
+        setInterval(()=>{
+            let daojishi;
+            let nowTime = endTime - new Date().getTime();
+            let minutes = parseInt(nowTime / 1000 / 60 % 60, 10);//计算剩余的分钟
+            let seconds = parseInt(nowTime / 1000 % 60, 10);//计算剩余的秒数
+            minutes = this.checkTime(minutes);
+            seconds = this.checkTime(seconds);
+            let hours = parseInt(nowTime / ( 1000 * 60 * 60), 10); //计算剩余的小时
+            hours = this.checkTime(hours);
+            daojishi = hours + "小时" + minutes + "分" + seconds + "秒";
+            this.daojishi = daojishi;
+            this.setData({ daojishi: daojishi });  
+        },1000);
+    }
+   
+    checkTime(i) { //将0-9的数字前面加上0，例1变为01
+      if (i < 10) {
+          i = "0" + i;
+      }
+      return i;
+    }
+
+
+  }
+</script>

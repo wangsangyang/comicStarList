@@ -1,0 +1,72 @@
+<!-- // <style lang="less">
+// page{ padding: 20rpx 0 0; background-color: #eee; }
+// .cont-1{
+//   background-color: #fff;
+//   .list{
+//     display: flex;
+//     padding: 30rpx 20rpx;
+//     font-size: 30rpx;
+//     color: #303030;
+//     border-bottom: solid 1rpx #f3f3f3;
+//     .col-1{ }
+//     .col-2{ flex: 1; color: #0fb6f7; }
+//   }
+// }
+// </style>
+//
+// <template>
+//     <button @tap='upimg'>上传图片</button>
+//
+// </template>
+//
+// <script>
+//   import wepy from 'wepy'
+//   import {util} from '../js/util'
+//   import base64 from "base-64"
+  //import OSS from 'ali-oss'
+
+  // export default class Ali extends wepy.page {
+  //   config = {
+  //     navigationBarTitleText: '测试上传',
+  //   }
+  //
+  //   data = {
+  //     aliData: {}
+  //   }
+  //
+  //   methods = {
+  //       upimg(){
+  //         wx.chooseImage({
+  //           count: 1,
+  //           sourceType: ['album', 'camera'],
+  //           success: res=>{
+  //             console.log(res);
+  //           },
+  //           fail: error=>{
+  //             console.log('选择图片错误');
+  //           }
+  //         });
+  //       }
+  //   }
+  //
+  //   onLoad() {
+  //     let OSS = require('ali-oss');
+      //let OSS = require('../js/aliyun-oss-sdk.min.js');
+      // let params = {
+      //   url: 'post/getAliKey'
+      // };
+      // util.$http(params).then(response=>{
+      //   console.log(response);
+      //   let aliData = response.data.data;
+      //   let tempAliData = {};
+      //   tempAliData.endpoint = base64.decode(aliData.endpoint);
+      //   tempAliData.accessKeyId = base64.decode(aliData.accessKeyId);
+      //   tempAliData.accessKeySecret = base64.decode(aliData.accessKeySecret);
+      //   tempAliData.bucket = base64.decode(aliData.bucket);
+      //   this.aliData = tempAliData;
+        //console.log(tempAliData);
+        //console.log(this.aliData);
+//       });
+//     }
+//   }
+// </script> -->

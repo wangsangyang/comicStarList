@@ -1,0 +1,31 @@
+<template>
+  <headPortrait :hisName.sync= "name" :srcPic.sync="src" :callTime.sync='time' :tapTime.sync="tapTime"> </headPortrait>
+  <view> <text>{{name}}{{src}}</text></view>
+</template>
+<script>
+import wepy from 'wepy'
+import {util} from '../js/util'
+import HeadPortrait from '../components/headPortrait'
+
+export default class Support extends wepy.page{
+  config={
+    navigationBarTitleText:'应援页面个人名字'
+  }
+ data = {
+   name:'wwww',
+   time:22,
+   src:"http://img.peipeilove.com/img/AnimeImage/2014/20141006/w_2014100614055455421.jpg",
+   tapTime:223
+ }
+ components = {
+   headPortrait:HeadPortrait
+ }
+
+ onShow(){
+   console.log(3333);
+ }
+  onLoad() {
+   console.log(3333);
+ }
+}
+</script>

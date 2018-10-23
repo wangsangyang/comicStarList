@@ -1,0 +1,96 @@
+<style lang="less">
+page{ padding: 20rpx 0 0; background-color: #eee; }
+.cont-1{ 
+  background-color: #fff;
+  .list{
+    display: flex;
+    padding: 30rpx 20rpx;
+    font-size: 30rpx;
+    color: #303030;
+    border-bottom: solid 1rpx #f9f9f9;
+    .col-1{ width: 50%; }
+    .col-2{ flex: 1; text-align: right; color: #0fb6f7; }
+  }
+}
+</style>
+
+<template>
+  <view wx:for="{{itemsArray}}" wx:key="">
+    <view class='cont-1'>
+        <view class='list' wx:if="{{item.type==1}}">
+            <text class="col-1">签到获得星能</text>
+            <text class="col-2">+{{item.starNum}}</text>
+        </view>
+    </view>
+    <view class='cont-1'>
+        <view class='list' wx:if="{{item.type==3}}">
+            <text class="col-1">红包获得星能</text>
+            <text class="col-2">+{{item.starNum}}</text>
+        </view>
+    </view>
+    <view class='cont-1'>
+        <view class='list' wx:if="{{item.type==2}}">
+            <text class="col-1">打榜消耗星能</text>
+            <text class="col-2">{{item.starNum}}</text>
+        </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {util} from '../js/util'
+
+  export default class MyStarenergy extends wepy.page {
+    config = {
+      navigationBarTitleText: '我的星能',
+    }
+
+    data = {
+      keyword: '',
+      showClearbtn: false,//是否显示清除按钮,
+      itemsArray: [],
+    }
+
+    methods = {
+        search(e) {     
+          let keyword = e.detail.value;           
+          console.log(e.detail.value);
+        },
+        inputKeyword(e){    
+          this.keyword = e.detail.value;
+          this.showClearbtn = true;
+        },
+        clearKeyword(){
+          this.keyword = '';
+        },
+        linkKefu(){
+          wx.navigateTo({
+            url: 'kefu'
+          });
+        }
+    }
+
+    onLoad() {
+        let userInfo = wx.getStorageSync('userInfo');
+        let params = {
+            url: 'program/user/myStarList',
+            data: {
+              uId: userInfo.uId,
+            }
+        };
+
+        util.$http(params).then(response=>{
+          //console.log(response);
+          if(response.statusCode==200&&response.data.code=='0000'){
+            this.itemsArray = response.data.data;
+
+            this.setData({
+              itemsArray: response.data.data
+            });
+            console.log(this.itemsArray);
+          }
+        });
+    }
+  }
+</script>

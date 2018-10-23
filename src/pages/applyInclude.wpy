@@ -1,0 +1,121 @@
+<style lang="less">
+page{ padding: 110rpx 0 0; }
+.search-box{ 
+  position: fixed; top: 0; left: 0; z-index: 9; width: 100%; padding: 20rpx 20rpx; background-color: #fff; 
+  .icon-search{ width: 38rpx; position: absolute; top: 32rpx; left: 30rpx; z-index: 2; } 
+  .clear{ position: absolute; top: 32rpx; right: 180rpx; z-index: 3; } 
+  .box{ display: flex; }
+  .searchkey{ flex: 1; padding: 0 0 0 55rpx; margin-right: 15rpx; font-size: 28rpx; height: 68rpx; background-color: #f5f5f5; border-radius: 40rpx; }
+  .placeholder{ color: #8E8E93; }
+  .add{ font-size: 28rpx; line-height: 68rpx; padding: 0 40rpx; color: #fff; background-color: #419BFF; border-radius: 34rpx; }
+}
+.search-nodata{
+  text-align: center; 
+  .img{ }
+  .text{ display: block; color: #87C0FF; font-size: 30rpx; }
+  .btns{ 
+    padding: 50rpx 100rpx 0;
+  }
+}
+
+.modal{ 
+  .container{ 
+    text-align: center; 
+    .m-title{ padding: 34rpx 0 0; }
+    .t1{ padding: 46rpx 0 0; }
+    .t2{ padding: 46rpx 0 0; }
+    .btns{ 
+      padding: 46rpx 40rpx 40rpx; 
+      .btn{ font-size: 30rpx; } 
+    }
+  }
+}
+
+</style>
+
+<template>
+
+    <view class='search-box'>
+        <image class='icon-search' mode='widthFix' src='../images/icon-search.png'></image>
+        <icon class="clear" type="cancel" size="20" color="#8E8E93" @tap="clearKeyword" wx:if="{{showClearbtn}}"/>
+        <view class='box'>
+            <input class='searchkey' confirm-type='search' value="{{keyword}}" placeholder-class="placeholder" bindinput='inputKeyword' bindconfirm='search' placeholder='输入动漫人物名称'/>
+            <text class="add" @tap="add">添加</text>
+        </view>
+    </view>
+
+    <view class="modal" wx:if="{{isShowModal}}">
+      <view class="container">
+        <view class="m-title">审核中</view>
+        <view class="t1">我们将在1个工作日内审核完毕</view>
+        <view class="t2">请耐心等待</view>
+        <view class="btns"><text class="btn" @tap="closeModalFn">我知道了！</text></view>
+      </view>
+    </view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {util} from '../js/util'
+
+  export default class ApplyInclude extends wepy.page {
+    config = {
+      navigationBarTitleText: '申请收录',
+    }
+
+    data = {
+      userInfo: {},
+      keyword: '',
+      showClearbtn: false,//是否显示清除按钮
+      isShowModal: false,
+    }
+
+    methods = {
+        search(e) {     
+          let keyword = e.detail.value;           
+          console.log(e.detail.value);
+        },
+        inputKeyword(e){    
+          this.keyword = e.detail.value;
+          this.showClearbtn = true;
+        },
+        clearKeyword(){
+          this.keyword = '';
+        },
+        closeModalFn(){
+          this.isShowModal = false;
+          wx.navigateBack({
+              delta: 1
+          });
+        },
+        add(){
+          //this.isShowModal = true;
+          let params = {
+                url: 'program/apply/addApplyWorkName',
+                data: {
+                  workName: this.keyword,
+                  uId: this.userInfo.uId,
+                }
+            };
+            util.$http(params).then(response=>{
+              console.log(response);
+              this.isShowModal = true;
+              this.setData({isShowModal: this.isShowModal});
+            });
+
+        },
+    }
+
+    onLoad(options) {
+      let keyword = options.keyword;
+      this.keyword = keyword;
+      //let userInfo = this.$parent.globalData.userInfo;
+      let userInfo = wx.getStorageSync('userInfo');
+      //console.log(userInfo);
+      //console.log(userInfo.uId);
+      this.userInfo = userInfo;
+      this.setData({userInfo: userInfo});
+    }
+  }
+</script>

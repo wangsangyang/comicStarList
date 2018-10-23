@@ -1,0 +1,207 @@
+<style lang="less">
+@color: #303030;
+@activecolor: #419BFF;
+@fontsize32: 32rpx;
+@fontsize30: 30rpx;
+@fontsize28: 28rpx;
+@fontsize26: 26rpx;
+page,view,text,input{ box-sizing: border-box; }
+page {
+  min-height: 100%;
+}
+button{
+  border: 0; outline: none;
+  &::after{ display: none; }
+}
+.btns{
+  text-align: center;
+  .btn{ display: block; height: 90rpx; line-height: 90rpx; background-color: #419BFF; color: #fff; border-radius: 100rpx; font-size: 32rpx; }
+  .cancel{ background-color: #ccc; }
+}
+
+.modal{
+  position: fixed;
+  z-index: 999;
+  width:100%;
+  height:100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.5);
+  .container{
+    width: 84%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background-color: #fff;
+    transform: translate(-50%,-50%);
+    color: #303030;
+    font-size: 28rpx;
+    border-radius: 10rpx;
+    .close{ position: absolute; top: -25rpx; right: -25rpx; width:25rpx; background-color: #fff; border-radius:50%; padding: 15rpx; }
+  }
+}
+
+
+/*现金红包弹窗*/
+.modalRedXJ{
+  .container{
+    .close{ top: 35rpx; right: auto; left: 35rpx; width:38rpx; background-color: transparent; border-radius: 0; padding: 0; }
+    text-align: center;
+    padding: 60rpx 0 140rpx;
+    background-color: #D85940;
+    color: #FAD494;
+    .touxiang{
+      background-color: #fff;
+      width: 120rpx;
+      height: 120rpx;
+      margin: auto;
+      border: solid 2rpx #dc6952;
+      border-radius: 50%;
+      overflow: hidden;
+      .img{ width: 100%; }
+    }
+    .t1{ font-size: @fontsize30; padding: 40rpx 0 0; }
+    .t2{ font-size: 40rpx; padding: 96rpx 0 0; }
+    .btns{
+      position: relative;
+      z-index: 2;
+      padding: 60rpx 0 0;
+      .img{ width: 240rpx; }
+      .btn{ background-color: #FAD494; color: #D85940; }
+    }
+    .bg{ position: absolute; bottom: 0; left: 0; width: 100%; }
+  }
+}
+
+/*星能红包弹窗*/
+.modalRedXN{
+  .container{
+    .close{ top: auto; bottom: -100rpx; right: auto; left: 50%; margin-left: -15rpx; }
+    text-align: center;
+    padding: 380rpx 0 0rpx;
+    background-color: transparent;
+    color: #FAD494;
+    height: 900rpx;
+    top: 45%;
+    .touxiang{
+      position: relative;
+      z-index: 2;
+      background-color: #fff;
+      width: 120rpx;
+      height: 120rpx;
+      margin: auto;
+      border: solid 2rpx #dc6952;
+      border-radius: 50%;
+      overflow: hidden;
+      .img{ width: 100%; }
+    }
+    .t1{ position: relative; z-index: 2;font-size: @fontsize30; padding: 35rpx 0 0; }
+    .t2{ position: relative; z-index: 2;font-size: 40rpx; padding: 60rpx 0 0; }
+    .btns{
+      position: relative;
+      z-index: 2;
+      padding: 60rpx 80rpx 0;
+      .btn{ background-color: #FAD494; color: #D85940; }
+    }
+    .bg{ position: absolute; top: 0; left: 0; width: 100%; }
+  }
+}
+</style>
+
+<script>
+import wepy from 'wepy'
+import 'wepy-async-function'
+
+import { setStore } from 'wepy-redux'
+import configStore from './store'
+
+const store = configStore()
+setStore(store)
+
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/index',
+      'pages/ali',
+      'pages/call',
+      'pages/inviteFriend',
+      'pages/dabang',
+      'pages/myWeixinRed',
+      'pages/me',
+      'pages/search',
+      'pages/friendKaiRedXN',
+      'pages/friendKaiRedXJ',
+      'pages/signin',
+      'pages/applyInclude',
+      'pages/shareRed',
+      'pages/myStarenergyRed',
+      'pages/dabangGuize',
+      'pages/myStarenergy',
+      'pages/kefu',
+      'pages/support'
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#ff3366',
+      navigationBarTitleText: '加一次元',
+      navigationBarTextStyle: 'white'
+    },
+    tabBar: {
+      color: "#7F8389",
+      selectedColor: "#FF7F7F",
+      backgroundColor: "#fff",
+      borderStyle: "black",
+      list: [
+        {
+          "selectedIconPath": "images/icon-home-active.png",
+          "iconPath": "images/icon-home.png",
+          "pagePath": "pages/index",
+          "text": "首页"
+        },
+        {
+          "selectedIconPath": "images/icon-call.png",
+          "iconPath": "images/icon-call.png",
+          "pagePath": "pages/call",
+          "text": "打call",
+        },
+        {
+          "selectedIconPath": "images/icon-me-active.png",
+          "iconPath": "images/icon-me.png",
+          "pagePath": "pages/me",
+          "text": "我的"
+        },
+      ]
+    },
+  }
+
+  globalData = {
+    userInfo: {},//登录用户的信息（头像、你猜等等）
+    redEnvelopeId: '',//红包id
+    redType: '',//红包类型，1：现金红包，2：星能红包
+  }
+
+  constructor () {
+    super()
+    this.use('requestfix')
+  }
+
+  onLaunch() {
+    this.testAsync()
+  }
+
+  sleep (s) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('promise resolved')
+      }, s * 1000)
+    })
+  }
+
+  async testAsync () {
+    const data = await this.sleep(3)
+    console.log(data)
+  }
+
+}
+</script>

@@ -1,0 +1,316 @@
+<style lang="less">
+@color: #303030;
+@activecolor: #419BFF;
+@fontsize32: 32rpx;
+@fontsize30: 30rpx;
+@fontsize28: 28rpx;
+@fontsize26: 26rpx;
+page{ 
+  padding: 20rpx; 
+  background-color: #f3f3f3;
+  color: @color; 
+ }
+.cont-header{ 
+  background-color: #fff;
+  padding: 45rpx 0 35rpx;
+  text-align: center;
+  position: relative;
+  .tag{ width: 86rpx; position: absolute; top: 26rpx; left: 50%; margin: 0 0 0 50rpx; }
+  .touxiang{
+    position: relative; 
+    z-index: 2;
+    background-color: #fff;
+    width: 150rpx; 
+    height: 150rpx;
+    margin: auto;
+    border: solid 2rpx @activecolor;
+    border-radius: 50%;
+    overflow: hidden;
+    .icon{ display: block; width: 100%; }
+  }
+  .nickbox{ 
+    padding: 30rpx 0 0;
+    font-size: @fontsize30;
+    .text{ font-size: @fontsize30; }
+  }
+  .row3{
+    padding: 20rpx 0 0;
+    font-size: @fontsize30;
+  }
+  .row4{
+    padding: 16rpx 5rpx 0;
+    font-size: @fontsize26;
+    .s1{
+      display: inline-block;
+      color: #D85940;
+      font-size: 38rpx;
+      margin-right: 16rpx;
+    }
+    .s2{ color: #696969; }
+  }
+}
+
+.cont-tixin{
+  padding: 20rpx 0 40rpx;
+  font-size: @fontsize26;
+  color: #696969; 
+  text-align: center;
+  checkbox-group{ 
+    checkbox{ 
+      display: inline-block; transform:scale(0.55); vertical-align: top; margin: -6rpx -4rpx 0 0;
+      .wx-checkbox-input{ background-color: none; border: solid 1px #aaa; }
+      .wx-checkbox-input.wx-checkbox-input-checked{ 
+        background-color: @activecolor; border: solid 1px @activecolor; 
+        &::before{ font-size:55rpx; color:#fff; }
+      }
+    }
+  }
+  .btns{ padding: 40rpx 120rpx 0; }
+}
+
+.cont-hasdata{
+  background-color: #fff;
+  .c-header{ 
+    font-size: @fontsize30; 
+    border-bottom: solid 1rpx #F3F3F3;
+    padding: 20rpx 50rpx;
+  }
+  .list{
+    display: flex;
+    align-items: center;
+    padding: 20rpx 50rpx;
+    border-bottom: solid 1rpx #F3F3F3;
+    .left{
+      width: 104rpx;
+      height: 104rpx;
+      border: solid 2rpx #87C0FF;
+      border-radius: 50%;
+      overflow: hidden;
+      text-align: center;
+      image{
+        width: 100%;
+        display: inline-block;
+      }
+    }
+    .middle{
+      flex: 1;
+      margin-left: 40rpx;
+      font-size: @fontsize28;
+    }
+    .right{ font-size: @fontsize28; }
+  }
+}
+
+.cont-guize{
+  position: fixed;
+  z-index: 3;
+  right: 0; 
+  top: 70rpx;
+  display: flex;
+  align-items: center;
+  box-shadow: 4rpx 4rpx 8rpx #aaa;
+  border-radius: 40rpx 0 0 40rpx;
+  padding: 12rpx 18rpx;
+  background-color: #fff;
+  .icon{ width: 30rpx; margin-right: 14rpx; }
+  text{ font-size: @fontsize28; }
+}
+
+.modalGuize{ 
+  .container{ 
+    padding: 0 40rpx;
+    .m-title{ padding: 34rpx 0 0; font-size: @fontsize30; text-align: center; }
+    .t1{ 
+      padding: 16rpx 0 0; 
+      font-size: @fontsize26; 
+      color: #696969;
+    }
+    .btns{ 
+      padding: 46rpx 0 40rpx; 
+      .btn{ font-size: 30rpx; } 
+    }
+  }
+}
+</style>
+
+<template>
+
+    <!-- 规则弹窗 -->
+    <view class="modal modalGuize" hidden="{{isShowModalGuize}}">
+      <view class="container">
+        <view class="m-title">活动规则</view>
+        <view class="t1">获得红包后，可以分享活动给好友帮忙开红包，星能总金额没有上限！榜开好友越多获得的越多。</view>
+        <view class="t1">邀请不同好友帮开，满足对应人数，既可以打开额外惊喜获得。</view>
+        <view class="t1">每人每天有3次帮开机会，每天可以帮助同一个人帮开1次。</view>
+        <view class="t1">红包期限是自然周，周一到周日，下周会自动重新开始统计。</view>
+        <view class="btns"><text class="btn" @tap="closeModalGuizeFn">我知道了！</text></view>
+      </view>
+    </view>
+
+    <view class="cont-guize" @tap="showModalGuizeFn">
+      <image mode='widthFix' class="icon" src="../images/icon1.png"/>
+      <text>活动规则</text>
+    </view>
+
+    <view class="cont-header">
+      <image mode='widthFix' class="tag" src="../images/icon2.png"/>
+      <view class="touxiang"><open-data class="icon" type="userAvatarUrl"></open-data></view>
+      <view class="nickbox"><open-data class="text" type="userNickName"></open-data></view>
+<!-- 
+      <view class="row1">
+        <image mode='widthFix' class="img" src="../images/bg1.png"/>
+      </view>
+      <view class="row2">性感邮包</view>
+       -->
+      <view class="row3">{{daojishi}}后过期</view>
+      <view class="row4"><text class="s1">{{totalStarNum}}</text><text class="s2">星能</text></view>
+    </view>
+
+    <view class="cont-tixin">
+<!--       <checkbox-group bindchange="checkboxChange">
+        <label class="checkbox">
+          <checkbox value="1" checked="checked"/>星能获取时提醒我
+        </label>
+      </checkbox-group> -->
+      <view class="btns">
+<!--         <button class='btn' open-type="share" wx:if="{{isChaiState==0}}">邀请好友帮开</button> 
+        <button class='btn cancel' wx:else>邀请好友帮开</button>  -->
+        <button class='btn' open-type="share">邀请好友帮开</button> 
+      </view>
+    </view>
+
+    <view class="cont-hasdata">
+      <view class="c-header">好友开红包</view>
+      <view class="list" wx:for="{{friendsArray}}" wx:key="">
+        <view class="left"><image class='img' mode='widthFix' src='{{item.imageUrl}}'/></view>
+        <view class="middle">{{item.name}}</view>
+        <view class="right">{{item.starNum}}</view>
+      </view>
+    </view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {util} from '../js/util'
+
+  export default class MyStarenergyRed extends wepy.page {
+    config = {
+      navigationBarTitleText: '我的星能红包',
+    }
+
+    data = {
+      isChaiState: '', //0：星能红包未被拆，1：已被拆
+      isShowModalGuize: true,
+      //beginTime: '',
+      daojishi: '---',
+      isGuoqiRed: '',//红包是否过期
+      totalStarNum: '',//总共星能值
+      friendsArray: [],//好友列表
+      redEnvelopeId: '',
+      avatar: '',//头像
+      userName: '',//昵称
+    }
+
+    methods = {
+      showModalGuizeFn(){
+        this.isShowModalGuize = false;
+      },
+      closeModalGuizeFn(){
+        this.isShowModalGuize = true;
+      },
+      /* 分享给好友 */
+      onShareAppMessage(res) {
+          let userInfo = wx.getStorageSync('userInfo');        
+          let uId = userInfo.uId;     
+          let avatar = userInfo.avatar;  
+          let userName = userInfo.userName;    
+          let redEnvelopeId = this.redEnvelopeId;
+          //let redType = this.$parent.globalData.redType;//红包类型，1：星能红包，2：现金红包
+          let options = 'uId=' + uId + '&avatar=' + avatar + '&userName=' + userName + '&redEnvelopeId=' + redEnvelopeId + '&redType=2' + '&source=2';
+          return {
+              title: '[@你]为喜爱的动漫明星打榜，帮我点一下，奖金马上可以翻倍～～',
+              imageUrl:'../images/share-bg-xn.png',
+              path: 'pages/friendKaiRedXN?' + options
+          }
+      },
+    }
+
+    onLoad() {
+      //console.log(this.timer('2018-09-26 17:33:46'));
+      let userInfo = wx.getStorageSync('userInfo');
+      let money = wx.getStorageSync('money');
+      let params = {
+          url: 'program/user/getMyStarNumList',
+          data: {
+            uId: userInfo.uId,
+            //redEnvelopeId: money.redEnvelopeId,
+            source: 1, 
+            type: 2,//1：星能红包
+          }
+      };
+      util.$http(params).then(response=>{
+        console.log(response);
+        if(response.statusCode==200&&response.data.code=='0000'){
+          this.isChaiState = response.data.data.state; //0：星能红包未被拆开，1：已被拆开
+          this.setData({isChaiState: this.isChaiState});
+
+          let beginTime = response.data.data.beginTime;
+          let endTime = response.data.data.endTime;
+          this.timer(beginTime, endTime);
+          this.totalStarNum = response.data.data.totalStarNum;
+          this.isGuoqiRed = response.data.data.state;
+          this.friendsArray = response.data.data.clickInfo;
+          this.redEnvelopeId = response.data.data.userInfo.redEnvelopeId;
+          this.avatar = response.data.data.userInfo.imageUrl;
+          this.userName = response.data.data.userInfo.name;
+          this.setData({ 
+            totalStarNum: this.totalStarNum,
+            isGuoqiRed: this.isGuoqiRed,
+            friendsArray: this.friendsArray,
+            redEnvelopeId: this.redEnvelopeId,
+            avatar: this.avatar,
+            userName: this.userName,
+          });
+        }
+        
+      });
+
+    }
+
+
+    /**
+     * 入参第一个为时间字符串，第二个参数为模式选择，如果传入'day'，按天数倒计时到秒，不传值，按小时精确到秒
+     * @param timeStr
+     * @param item
+     */
+    timer(beginTime,endTime){
+      let daojishi;
+        setInterval(()=>{
+            let m1 = parseInt(endTime);
+            //let m2 = new Date(beginTime).getTime();
+            let nowTime = new Date(m1) - new Date;
+            let minutes = parseInt(nowTime / 1000 / 60 % 60, 10);//计算剩余的分钟
+            let seconds = parseInt(nowTime / 1000 % 60, 10);//计算剩余的秒数
+            minutes = this.checkTime(minutes);
+            seconds = this.checkTime(seconds);
+            let days = parseInt(nowTime / 1000 / 60 / 60 / 24, 10); //计算剩余的天数
+            let hours = parseInt(nowTime / 1000 / 60 / 60 % 24, 10); //计算剩余的小时
+            days = this.checkTime(days);
+            hours = this.checkTime(hours);
+            daojishi = days + "天" + hours + "小时" + minutes + "分" + seconds + "秒";
+            this.daojishi = daojishi;
+            this.setData({ daojishi: daojishi });
+         
+        },1000);
+    }
+   
+    checkTime(i) { //将0-9的数字前面加上0，例1变为01
+      if (i < 10) {
+          i = "0" + i;
+      }
+      return i;
+    }
+
+  }
+</script>

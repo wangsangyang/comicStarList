@@ -1,0 +1,43 @@
+
+<template lang="wxml">
+   <view>
+     <view>
+        <image style="width:52 rpx; height: 52rpx; background-color: #eeeeee;"  src="{{srcPic}}"></image>
+     </view>
+     <view>
+        <text>{{name}}22</text>
+     </view>
+     <view>
+       <text>{{tapTime}}前</text>
+        <text>已经打call{{callTime}}天</text>
+     </view>
+   </view>
+</template>
+<script>
+    import wepy from 'wepy'
+
+    export default class HeadPortrait extends wepy.component {
+       // customData = { name:'ddd'};
+      props = {
+        hisName:{
+        type: String,
+        default: 'null'
+      },
+       srcPic:{
+       type: String,
+       default: 'null'
+      },
+       callTime:{
+       type: Number,
+       default: 'null'
+      },
+     tapTime:{
+       type: Number,
+       default: 'null'
+      }
+     }
+    onLoad(){
+    }
+
+    }
+</script>

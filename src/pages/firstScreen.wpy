@@ -1,0 +1,135 @@
+<style lang="less">
+page{ height: 100%; overflow: hidden; background-color: #ff3366; }
+.bg-page{
+  width: 100%;
+  display: block;
+}
+.btns{
+  position: fixed; bottom: 60rpx; left: 25%; right: 25%; z-index: 9; text-align: center;
+  .img{ width: 100%; }
+  .btn{ height: 100%; position: absolute; top: 0; left: 0rpx; right: 0rpx; z-index: 10; background-color: transparent; }
+}
+</style>
+
+<template>
+
+  <image mode='widthFix' class="bg-page" src="../images/first1.png"/>
+
+  <view class="btns">
+    <image mode='widthFix' class="img" src="../images/first2.png"/>
+    <button class='btn' @tap='login' open-type="getUserInfo" title="微信一键登录"></button>
+  </view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {util} from '../js/util'
+
+  export default class FirstScreen extends wepy.page {
+    config = {
+      navigationBarTitleText: '动漫明星榜',
+      navigationBarBackgroundColor: '#ff3366',
+      navigationBarTextStyle: 'white'
+    }
+
+    data = {
+      userInfo: {
+        nickName: '加载中...'
+      },
+    }
+
+    computed = {
+      now () {
+        return +new Date()
+      }
+    }
+
+    methods = {
+      login() {
+        let that = this;
+        wx.getSetting({
+            success: result=> {
+                // 用户同意授权，调用getUserInfo方法获取头像昵称
+                if (result.authSetting['scope.userInfo']) {
+                    wx.getUserInfo({
+                        //用户同意授权
+                        success: res=> {
+                            //console.log(res);
+                            //return;
+                            let wxUserInfo = res.userInfo;
+                            let avatar = res.userInfo.avatarUrl;
+                            let userName = res.userInfo.nickName;
+                            let sex = res.userInfo.gender;
+                            //console.log(wxUserInfo);
+
+                            //console.log(avatar);
+                            //console.log(userName);
+                            //console.log(sex);
+
+                            wx.setStorageSync('wxUserInfo', wxUserInfo);
+
+                            wx.login({
+                              withCredentials: true,
+                              success(res){
+                                  //console.log(res);
+                                  let params = {
+                                      url: 'program/user/login',
+                                      data: {
+                                        code: res.code,
+                                        avatar: avatar,
+                                        userName: userName,
+                                        sex: sex,
+                                      }
+                                  };
+                                  util.$http(params).then(response=>{
+                                    //console.log(response);
+                                    if(response.statusCode==200&&response.data.code=='0000'){
+                                        //response.data.data.money.state;//0：红包未拆开，1：红包已拆开
+                                        //response.data.data.money.type;//1：现金红包，2：星能红包
+                                        wx.setStorageSync('userInfo', response.data.data.userInfo);
+                                        wx.setStorageSync('money', response.data.data.money);
+                                        //that.$parent.globalData.userInfo = response.data.data.userInfo;
+                                        //console.log(that.$parent.globalData.userInfo);
+                                        if(response.data.data.money){
+                                          that.$parent.globalData.redEnvelopeId = response.data.data.money.redEnvelopeId;//设置红包的id
+                                          that.$parent.globalData.redType = response.data.data.money.type;//设置红包的类型
+                                        }
+                                    }
+                                    // wx.switchTab({
+                                    //   url: 'index'
+                                    // });
+                                    wx.navigateTo({
+                                      url:'index'
+                                    })
+                                  });
+                              }
+                            });
+
+                        }
+                    })
+                }
+            }
+        });
+      },
+      request () {
+        let self = this
+        let i = 10
+        let map = ['MA==', 'MQo=', 'Mg==', 'Mw==', 'NA==', 'NQ==', 'Ng==', 'Nw==', 'OA==', 'OQ==']
+        while (i--) {
+          wepy.request({
+            url: 'https://www.madcoder.cn/tests/sleep.php?time=1&t=css&c=' + map[i] + '&i=' + i,
+            success: function (d) {
+              self.netrst += d.data + '.'
+              self.$apply()
+            }
+          })
+        }
+      },
+    }
+
+    onLoad() {
+      //console.log(util.data);
+    }
+  }
+</script>

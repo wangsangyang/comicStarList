@@ -1,0 +1,187 @@
+<style lang="less">
+@color: #303030;
+@activecolor: #419BFF;
+@fontsize32: 32rpx;
+@fontsize30: 30rpx;
+@fontsize28: 28rpx;
+@fontsize26: 26rpx;
+.modalSign{ 
+  .container{ 
+    border-radius: 8rpx;
+    .m-header{ 
+      .img{ display: block; width: 100%; margin-top: -130rpx; }
+    }
+    .m-bodyer{ 
+      display: flex;
+      flex-wrap: wrap;
+      padding: 30rpx 3% 0;
+      .list{ 
+        width: 21%;
+        margin: 2% 2%;
+        position: relative;
+        border-radius: 10rpx;
+        overflow: hidden;
+        .tag{ position: absolute; left: 3rpx; top: 3rpx; width: 70%;}
+        .img{ width: 100%; display: block; }
+        &:nth-last-child(1){
+          width: 46%;
+          .tag{ width: 33%;}
+        }
+      }
+    }
+    .m-row1{
+      padding: 15rpx 4% 30rpx;
+      font-size: @fontsize26;
+      text{ display: block; padding: 5rpx; }
+    }
+    .btns{
+      padding: 10rpx 4% 40rpx;
+    }
+    .close{ display: none; position: absolute; top: -60rpx; right: -60rpx; width:25rpx; background-color: #fff; border-radius:50%; padding: 15rpx; }
+  }
+}
+
+.modalSuccess{ 
+  .container{ 
+    width: 70%;
+    text-align: center; 
+    .m-title{ 
+      padding: 34rpx 0 0;
+      image{ width: 110rpx; }
+    }
+    .t1{ 
+      padding: 40rpx 0 0; 
+      font-size: 34rpx; 
+      color: #ED5234;
+      text{ display: inline-block; margin: 0 12rpx 0 0; font-size: 44rpx; font-weight: bold; }
+    }
+    .btns{ 
+      padding: 46rpx 40rpx 40rpx; 
+      .btn{ font-size: 30rpx; height: 80rpx; line-height: 80rpx; } 
+    }
+  }
+}
+</style>
+
+<template>
+
+    <!-- 签到弹窗 -->
+    <view class="modal modalSign">
+      <view class="container">
+        <image mode='widthFix' class="close" src="../images/close.png"/>
+        <view class="m-header">
+          <image mode='widthFix' class="img" src="../images/qiandao-title.png"/>
+        </view>
+        <view class="m-bodyer">
+          <view class="list">
+            <image mode='widthFix' class="tag" src="../images/qiandao1-tag.png"/>
+            <image mode='widthFix' class="img" src="../images/qiandao1.png"/>
+          </view>
+          <view class="list">
+            <image mode='widthFix' class="tag" src="../images/qiandao2-tag.png"/>
+            <image mode='widthFix' class="img" src="../images/qiandao2.png"/>
+          </view>
+          <view class="list">
+            <image mode='widthFix' class="tag" src="../images/qiandao3-tag.png"/>
+            <image mode='widthFix' class="img" src="../images/qiandao3.png"/>
+          </view>
+          <view class="list">
+            <image mode='widthFix' class="tag" src="../images/qiandao4-tag.png"/>
+            <image mode='widthFix' class="img" src="../images/qiandao4.png"/>
+          </view>
+          <view class="list">
+            <image mode='widthFix' class="tag" src="../images/qiandao5-tag.png"/>
+            <image mode='widthFix' class="img" src="../images/qiandao5.png"/>
+          </view>
+          <view class="list">
+            <image mode='widthFix' class="tag" src="../images/qiandao6-tag.png"/>
+            <image mode='widthFix' class="img" src="../images/qiandao6.png"/>
+          </view>
+          <view class="list">
+            <image mode='widthFix' class="tag" src="../images/qiandao7-tag.png"/>
+            <image mode='widthFix' class="img" src="../images/qiandao7.png"/>
+          </view>
+        </view>
+        <view class="m-row1">
+          <text>签到第一天获得5个星能，连续签到每天增加一个星能，连续7天额外获得30个星能。</text>
+          <text>如果中途断签，需要从第一天开始重新签到。</text>
+        </view>
+        <view class="btns">
+          <text class="btn" @tap="sign">签到</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 签到成功窗口 -->
+    <view class="modal modalSuccess" hidden="{{isShowModalSuccess}}">
+      <view class="container">
+        <view class="m-title">签到成功</view>
+        <view class="t1">+<text>{{number}}</text>星能值</view>
+        <view class="btns"><text class="btn" @tap="closeModal">我知道了</text></view>
+      </view>
+    </view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {util} from '../js/util'
+
+  export default class Kefu extends wepy.page {
+    config = {
+      navigationBarTitleText: '签到',
+    }
+
+    data = {
+     isShowModalSuccess: true,
+     number: ''
+    }
+
+    methods = {
+        closeModal(){
+          this.isShowModalSuccess = true;
+        },
+        sign(){
+          let params = {
+              url: 'program/user/sign',
+              data: {
+                uId: this.userInfo.uId,
+              }
+          };
+          util.$http(params).then(response=>{
+            //console.log(response);
+            if(response.statusCode==200&&response.data.code=='0000'){
+              this.number = response.data.data;
+              this.isShowModalSuccess = false;
+              this.setData({
+                isShowModalSuccess: false,
+                number: response.data.data
+              });
+              util.loading('close');
+            }
+            if(response.statusCode==200&&response.data.code=='8002'){
+               wx.showModal({
+                  title: '签到失败',
+                  content: response.data.msg,
+                  showCancel: false,
+                  confirmText: '我知道了',
+                  success: function(){
+                    wx.navigateBack();
+                  }
+              }); 
+            }
+          });
+          
+        },
+    }
+
+    onLoad() {
+        //let userInfo = this.$parent.globalData.userInfo;
+        let userInfo = wx.getStorageSync('userInfo');
+        console.log(userInfo);
+        //console.log(userInfo.uId);
+        this.userInfo = userInfo;
+        this.setData({ userInfo: this.userInfo });
+    }
+  }
+</script>

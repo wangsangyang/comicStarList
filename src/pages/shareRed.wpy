@@ -1,0 +1,84 @@
+<style lang="less">
+@color: #303030;
+@activecolor: #419BFF;
+@fontsize32: 32rpx;
+@fontsize30: 30rpx;
+@fontsize28: 28rpx;
+@fontsize26: 26rpx;
+page{ 
+  background-color: #fff;
+  color: @color; 
+ }
+</style>
+
+<template>
+
+    <!-- 开现金红包弹窗 -->
+    <view class="modal modalRedXJ" hidden="{{isShowModalRedXJ}}">
+      <view class="container">
+        <!-- <image mode='widthFix' class="close" src="../images/close1.png" @tap="closeModalRedXJFn"/> -->
+        <view class="touxiang"><image mode='widthFix' class="img" src="../images/bg1.png"/></view>
+        <view class="t1">谢谢帮我获得红包</view>
+        <view class="t2">送你0.3元现金</view>
+        <view class="btns"><image mode='widthFix' class="img" src="../images/kai.png" @tap="linkRedXJFn"/></view>
+        <image mode='widthFix' class="bg" src="../images/hong1.png"/>
+      </view>
+    </view>
+
+    <!-- 开星能红包弹窗 -->
+    <view class="modal modalRedXN" hidden="{{isShowModalRedXN}}">
+      <view class="container">
+        <view class="touxiang"><image mode='widthFix' class="img" src="../images/bg1.png"/></view>
+        <view class="t1">谢谢帮我获得红包</view>
+        <view class="t2">恭喜获得星能红包</view>
+        <view class="btns"><text class="btn" @tap="linkRedXNFn">立即领取</text></view>
+        <image mode='widthFix' class="bg" src="../images/hong2.png"/>
+      </view>
+    </view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {util} from '../js/util'
+
+  export default class ShareRed extends wepy.page {
+    config = {
+      navigationBarTitleText: '红包',
+    }
+
+    data = {   
+      isShowModalRedXJ: false,
+      isShowModalRedXN: true,
+    }
+
+    methods = {
+      closeModalRedXJFn(){
+        this.isShowModalRedXJ = true;
+      },
+      linkRedXJFn(){
+        wx.navigateTo({
+          url: 'friendKaiRedXJ'
+        });
+      },
+      linkRedXNFn(){
+        wx.navigateTo({
+          url: 'friendKaiRedXN'
+        });
+      }
+    }
+
+    onLoad(options) {
+      console.log(options);
+      //如果是星能红包
+      if(options.redType==1){
+        this.isShowModalRedXN = false;
+      }
+      //如果是现金红包
+      if(options.redType==2){
+        this.isShowModalRedXJ = false;
+      }
+    }
+
+  }
+</script>
