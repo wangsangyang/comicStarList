@@ -135,9 +135,24 @@ page{ padding: 20rpx 20rpx 0; background-color: #eee; color: @color; }
             <text class="col-1">我的星能</text>
             <view class="col-2"><image mode='widthFix' class="icon-arrow" src="../images/icon-arrow1.png"/></view>
         </view>
+        <view class='list' @tap="linkOrder">
+            <image class="icon" mode='widthFix' src="../images/icon-kefu.png"/>
+            <text class="col-1">我的订单</text>
+            <view class="col-2"><image mode='widthFix' class="icon-arrow" src="../images/icon-arrow1.png"/></view>
+        </view>
+        <view class='list' @tap="linkAddress">
+            <image class="icon" mode='widthFix' src="../images/icon-kefu.png"/>
+            <text class="col-1">我的地址</text>
+            <view class="col-2"><image mode='widthFix' class="icon-arrow" src="../images/icon-arrow1.png"/></view>
+        </view>
         <view class='list' @tap="linkKefu">
             <image class="icon" mode='widthFix' src="../images/icon-kefu.png"/>
             <text class="col-1">客服中心</text>
+            <view class="col-2"><image mode='widthFix' class="icon-arrow" src="../images/icon-arrow1.png"/></view>
+        </view>
+        <view class='list' @tap="linkJihuo">
+            <image class="icon" mode='widthFix' src="../images/icon-kefu.png"/>
+            <text class="col-1">奖励激活码</text>
             <view class="col-2"><image mode='widthFix' class="icon-arrow" src="../images/icon-arrow1.png"/></view>
         </view>
     </view>
@@ -294,6 +309,15 @@ page{ padding: 20rpx 20rpx 0; background-color: #eee; color: @color; }
         wx.navigateTo({
           url: 'kefu'
         });
+      },
+      linkOrder(){
+        wx.navigateTo({url: 'order/list'});
+      },
+      linkAddress(){
+        wx.navigateTo({url: 'order/address'});
+      },
+      linkJihuo(){
+        wx.navigateTo({url: 'order/redeemCode'});
       }
     }
 

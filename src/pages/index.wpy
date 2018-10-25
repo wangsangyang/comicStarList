@@ -477,7 +477,7 @@ page{
 
     methods = {
       switchNavtab(index){
-          console.log(index);
+          conosole.log(index);
       },
       duihuanFn(){
         this.showJiangpin = false;
