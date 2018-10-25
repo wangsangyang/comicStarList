@@ -61,26 +61,32 @@
        import wepy from 'wepy'
        import {util} from '../js/util'
        import base64 from "base-64"
-       import Crypto from  "crypto-js"
-       var aid = "LTAIiQn09Qv72u05";
-       var aky="tyZcMykS2emGf2YrX0xEDVMyWKV8wP";
-       var host = "https://jiayiworld-video.oss-cn-qingdao.aliyuncs.com";
-       var policyText = {
-           "expiration": "2020-01-01T12:00:00.000Z",
-           "conditions": [
-           ["content-length-range", 0, 10485760000]
-           ]
-       };
-       var policy = base64.encode(JSON.stringify(policyText));
-       var bytes = Crypto.HMAC(Crypto.SHA1, policy, aky, { asBytes: true }) ;
-       var signature = Crypto.util.bytesToBase64(bytes);
+       import {Crypto} from  "../js/crypto"
+
      export default class Ali extends wepy.page {
        data ={
 
        }
+
        methods = {
+
            upimg(){
              console.log(33333);
+             var aid = "LTAIiQn09Qv72u05";
+             var aky="tyZcMykS2emGf2YrX0xEDVMyWKV8wP";
+             var host = "https://jiayiworld-video.oss-cn-qingdao.aliyuncs.com";
+             var policyText = {
+                 "expiration": "2020-01-01T12:00:00.000Z",
+                 "conditions": [
+                 ["content-length-range", 0, 10485760000]
+                 ]
+             };
+             this.aid =aid;
+             this.policy = base64.encode(JSON.stringify(policyText));
+             // var bytes = Crypto.util.HMAC(Crypto.SHA1, message, accesskey, { asBytes: true })
+             var message = this.policy;
+             var bytes = Crypto.util.HMAC(Crypto.util.SHA1, this.policy, aky, { asBytes: true }) ;
+             this.signature = Crypto.util.bytesToBase64(bytes);
              // wx.chooseImage({
              //   count: 1,
              //   sourceType: ['album', 'camera'],
@@ -96,52 +102,53 @@
              let params = {
                  url: '/post/getAliKey',
              }
-             util.$http(params).then(response=>{
-                 console.log('上传参数',response);
-                 if(response.data.code=='0000'){
-                     this.aliData = response.data.data;
-                     console.log(this.aliData, base64.decode(this.aliData.accessKeyId),base64.decode(this.aliData.accessKeySecret));
-                 }
-             });
+             // util.$http(params).then(response=>{
+             //     console.log('上传参数',response);
+             //     if(response.data.code=='0000'){
+             //         this.aliData = response.data.data;
+             //         console.log(this.aliData, base64.decode(this.aliData.accessKeyId),base64.decode(this.aliData.accessKeySecret));
+             //     }
+             // });
+             // console.log(this.aid,this.policy,this.signature,'dddddddddddddddd');
 
              //上传视频到阿里云
-             // wx.chooseVideo({
-             //    maxDuration: 10,
-             //    success: function (res) {
-             //      console.log(res)
-             //      var tempFilePath = res.tempFilePath
-             //      console.log('video path: ', tempFilePath)
-             //
-             //      wx.uploadFile({
-             //        url: 'https://jiayiworld-video.oss-cn-qingdao.aliyuncs.com',
-             //        filePath: tempFilePath,
-             //        name: 'file',
-             //        formData: {
-             //          name: tempFilePath,
-             //          key: "test/${filename}",
-             //          policy: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-             //          OSSAccessKeyId: this.OSSAccessKeyId,
-             //          success_action_status: "200",
-             //          signature: "xxxxxxxxxxxxxxxxxxx",
-             //        },
-             //        success: function (res) {
-             //          console.log('chooseImage success, temp path is: ', tempFilePath)
-             //          wx.showToast({
-             //            title: "上传成功",
-             //            icon: 'success',
-             //            duration: 1000
-             //          })
-             //        },
-             //        fail: function ({ errMsg }) {
-             //          console.log('upladImage fail, errMsg is: ', errMsg)
-             //          wx.showToast({
-             //            title: "上传失败",
-             //            duration: 1000
-             //          })
-             //        },
-             //      })
-             //    }
-             //  })
+             wx.chooseVideo({
+                maxDuration: 10,
+                success: function (res) {
+                  console.log(res)
+                  var tempFilePath = res.tempFilePath
+                  console.log('video path: ', tempFilePath)
+
+                  wx.uploadFile({
+                    url: 'https://jiayiworld-video.oss-cn-qingdao.aliyuncs.com',
+                    filePath: tempFilePath,
+                    name: 'file',
+                    formData: {
+                      name: tempFilePath,
+                      key: "test/${filename}",
+                      policy:this.policy,
+                      OSSAccessKeyId: this.aid,
+                      success_action_status: "200",
+                      signature: this.signature,
+                    },
+                    success: function (res) {
+                      console.log('chooseImage success, temp path is: ', tempFilePath)
+                      wx.showToast({
+                        title: "上传成功",
+                        icon: 'success',
+                        duration: 1000
+                      })
+                    },
+                    fail: function ({ errMsg }) {
+                      console.log('upladImage fail, errMsg is: ', errMsg)
+                      wx.showToast({
+                        title: "上传失败",
+                        duration: 1000
+                      })
+                    },
+                  })
+                }
+              })
 
 
 

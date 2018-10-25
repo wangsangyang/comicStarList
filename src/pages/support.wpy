@@ -159,7 +159,7 @@ overflow: auto;
       <!-- <image class="headPic" src="{{src}}"></image> -->
     </view>
     <view>
-      <headPortrait :hisName.sync= "name" :srcPic.sync="src" :callTime.sync='time' :tapTime.sync="tapTime"> </headPortrait>
+      <headPortrait :hisName.sync="name" :srcPic.sync="src" :callTime.sync='time' :tapTime.sync="tapTime"> </headPortrait>
       <view style="margin:0rpx 50rpx;">
          <!-- 音频图片 -->
           <view wx:if="{{isType=='pic'}}">
