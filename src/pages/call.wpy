@@ -1,53 +1,116 @@
 <style lang="less">
-page{ padding: 20rpx 0 0; background-color: #eee; }
+page{  }
 .cont-1{ 
   background-color: #fff;
-  .list{
-    display: flex;
+  textarea{
+    width: 100%;
     padding: 30rpx 20rpx;
-    font-size: 30rpx;
+    font-size: 32rpx;
     color: #303030;
-    border-bottom: solid 1rpx #f3f3f3;
-    .col-1{ }
-    .col-2{ flex: 1; color: #0fb6f7; }
   }
+}
+.cont-2{ 
+    display: flex; 
+    padding: 0 10rpx;
+    .list{
+      width: 140rpx;
+      height: 140rpx;
+      background-color: #F8F8F8;
+      margin: 0 10rpx;
+      padding: 0 10rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      image{ width: 50%; }
+      &:nth-child(2){
+        image{ width: 30%; }
+      }
+    }
+}
+.cont-3{ 
+    padding: 30rpx 20rpx;
+    .row1{
+      display: flex;
+      align-items: center;
+      font-size: 34rpx;
+      image{ width: 23rpx; margin-right: 5rpx; }
+      &.active{ color: #FF7F7F; }
+    }
+}
+.cont-btn{ 
+  position: absolute;
+  padding: 0 25rpx;
+  left: 0;
+  bottom: 50rpx;
+  width: 100%;
+  text-align: center;
+  .btn{ height: 90rpx; line-height: 90rpx; background-color: #419BFF; color: #fff; border-radius: 10rpx; font-size: 32rpx; background: linear-gradient(to right, #FA7298, #FCA86D); }
 }
 </style>
 
 <template>
     <view class='cont-1'>
-        <view class='list'>
-            <text class="col-1">微信公众号：</text>
-            <text class="col-2">加一次元</text>
-        </view>
+        <textarea bindblur="bindTextAreaBlur" auto-focus placeholder="心情、加油、此刻、自拍、心愿、 自言自语！" />
     </view>
-    <view class='cont-1'>
-        <view class='list'>
-            <text class="col-1">官方QQ群：</text>
-            <text class="col-2">465076764</text>
-        </view>
+    <view class='cont-2'>
+        <view class='list'><image mode='widthFix' src="../images/icon-picture.png"/></view>
+        <view class='list' @tap="linkRecord"><image mode='widthFix' src="../images/icon-record.png"/></view>
+        <view class='list'><image mode='widthFix' src="../images/icon-video.png"/></view>
     </view>
+    <view class='cont-3'>
+        <view class="row1 {{locationActive?'active':''}}" @tap="getLocation"><image mode='widthFix' src="../images/icon-address.png"/>{{location}}</view>
+        <view class="row2"></view>
+    </view>
+
+    <view class='cont-btn'>
+        <view class="btn">发表</view>
+    </view>
+
+    <navTab :active="active"></navTab>
 
 </template>
 
 <script>
   import wepy from 'wepy'
   import {util} from '../js/util'
+  import NavTab from '@/components/navTab'
 
   export default class Call extends wepy.page {
     config = {
-      navigationBarTitleText: '客服中心',
+      navigationBarTitleText: '来！打call',
     }
 
     data = {
-      showClearbtn: false,//是否显示清除按钮
+      location: '所在位置',//获取地理位置
+      locationActive: false,
+      active: 1
+    }
+
+    components = {
+      navTab: NavTab
     }
 
     methods = {
-        linkKefu(){
-          wx.navigateTo({
-            url: 'index'
+        //获取地理位置
+        getLocation(){
+          wx.chooseLocation({
+            success:(res)=>{
+              console.log(res);
+              this.location = res.address;
+              this.locationActive = true;
+              this.setData({
+                location: this.location,
+                locationActive: true
+              });
+            },
+            fail:(error)=>{
+              console.log(error);
+            },
           });
+        },
+        //录音
+        linkRecord(){
+          wx.navigateTo({url: 'recording'});
         }
     }
   }

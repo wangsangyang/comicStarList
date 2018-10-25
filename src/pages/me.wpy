@@ -142,11 +142,14 @@ page{ padding: 20rpx 20rpx 0; background-color: #eee; color: @color; }
         </view>
     </view>
 
+    <navTab :active="active"></navTab>
+
 </template>
 
 <script>
   import wepy from 'wepy'
   import {util} from '../js/util'
+  import NavTab from '@/components/navTab'
 
   export default class Me extends wepy.page {
     config = {
@@ -157,6 +160,11 @@ page{ padding: 20rpx 20rpx 0; background-color: #eee; color: @color; }
       isShowModalRedXJ: true,
       isShowModalRedXJKai: true,
       userInfo: '',
+      active: 2
+    }
+
+    components = {
+      navTab: NavTab
     }
 
     methods = {

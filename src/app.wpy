@@ -5,7 +5,7 @@
 @fontsize30: 30rpx;
 @fontsize28: 28rpx;
 @fontsize26: 26rpx;
-page,view,text,input{ box-sizing: border-box; }
+page,view,text,input,textarea{ box-sizing: border-box; }
 page {
   min-height: 100%;
 }
@@ -96,8 +96,8 @@ button{
       overflow: hidden;
       .img{ width: 100%; }
     }
-    .t1{ position: relative; z-index: 2;font-size: @fontsize30; padding: 35rpx 0 0; }
-    .t2{ position: relative; z-index: 2;font-size: 40rpx; padding: 60rpx 0 0; }
+    .t1{ position: relative; z-index: 2; font-size: @fontsize30; padding: 35rpx 0 0; }
+    .t2{ position: relative; z-index: 2; font-size: 40rpx; padding: 60rpx 0 0; }
     .btns{
       position: relative;
       z-index: 2;
@@ -123,8 +123,15 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/index',
-      'pages/ali',
       'pages/call',
+      'pages/order/redeemCode',
+      'pages/order/address',
+      'pages/order/list',
+      'pages/order/detail',
+      'pages/jiangpin/detail',
+      'pages/jiangpin/list',
+      'pages/recording',
+      //'pages/ali',
       'pages/inviteFriend',
       'pages/dabang',
       'pages/myWeixinRed',
@@ -144,35 +151,35 @@ export default class extends wepy.app {
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#ff3366',
-      navigationBarTitleText: '加一次元',
+      navigationBarTitleText: '动漫明星榜',
       navigationBarTextStyle: 'white'
     },
-    tabBar: {
-      color: "#7F8389",
-      selectedColor: "#FF7F7F",
-      backgroundColor: "#fff",
-      borderStyle: "black",
-      list: [
-        {
-          "selectedIconPath": "images/icon-home-active.png",
-          "iconPath": "images/icon-home.png",
-          "pagePath": "pages/index",
-          "text": "首页"
-        },
-        {
-          "selectedIconPath": "images/icon-call.png",
-          "iconPath": "images/icon-call.png",
-          "pagePath": "pages/call",
-          "text": "打call",
-        },
-        {
-          "selectedIconPath": "images/icon-me-active.png",
-          "iconPath": "images/icon-me.png",
-          "pagePath": "pages/me",
-          "text": "我的"
-        },
-      ]
-    },
+    // tabBar: {
+    //   color: "#7F8389",
+    //   selectedColor: "#FF7F7F",
+    //   backgroundColor: "#fff",
+    //   borderStyle: "black",
+    //   list: [
+    //     {
+    //       "selectedIconPath": "images/icon-home-active.png",
+    //       "iconPath": "images/icon-home.png",
+    //       "pagePath": "pages/index",
+    //       "text": "首页"
+    //     },
+    //     {
+    //       "selectedIconPath": "images/icon-call.png",
+    //       "iconPath": "images/icon-call.png",
+    //       "pagePath": "pages/call",
+    //       "text": "打call",
+    //     },
+    //     {
+    //       "selectedIconPath": "images/icon-me-active.png",
+    //       "iconPath": "images/icon-me.png",
+    //       "pagePath": "pages/me",
+    //       "text": "我的"
+    //     },
+    //   ]
+    // },
   }
 
   globalData = {

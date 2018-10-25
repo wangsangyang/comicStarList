@@ -1,0 +1,96 @@
+<style lang="less">
+.navTab{
+  height: 100rpx;
+  padding: 12rpx 0 0;
+  position: fixed;
+  z-index: 9999;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border-top: solid 2rpx #eee;
+  display: flex;
+  text-align: center;
+  .tab{
+    flex: 1;
+    text{ display: block; padding: 4rpx 0 0; font-size: 24rpx; color: #7F8389; }
+    image{ width: 55rpx; display: block; margin: auto; }
+    &:nth-child(2){  
+      image{ width: 140rpx; margin-top: -38rpx; }
+    }
+    .icon{}
+    .icon-active{ display: none; }
+  }
+  .active{
+    text{ color: #FF7F7F; }
+    .icon{ display: none; }
+    .icon-active{ display: block; }
+  }
+}
+</style>
+
+<template>
+    <view class="navTab">
+      <block wx:for="{{navTab}}" wx:key="">
+        <view class="tab {{active==index?'active':''}}" @tap="switchNavTab({{index}}, {{item.url}})">
+            <image class="icon" mode='widthFix' src="{{item.icon}}"/>
+            <image class="icon-active" mode='widthFix' src="{{item.iconActive}}"/>
+            <text>{{item.text}}</text>
+        </view>
+      </block>
+    </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class NavTab extends wepy.component {
+
+    data = {
+      navTab: [
+        {
+          text: '首页',
+          icon: '../images/icon-home.png',
+          iconActive: '../images/icon-home-active.png',
+          url: 'index'
+        },
+        {
+          text: '',
+          icon: '../images/icon-call.png',
+          iconActive: '../images/icon-call.png',
+          url: 'call'
+        },
+        {
+          text: '我的',
+          icon: '../images/icon-me.png',
+          iconActive: '../images/icon-me-active.png',
+          url: 'me'
+        }
+      ],
+    }
+
+    props = {
+      active: {
+        type: Number,
+        default: 0
+      }
+    }
+
+    methods = {
+      switchNavTab(index,url){
+        if(this.active != index){
+          this.active = index;
+          wx.redirectTo({url:url});
+        }
+        this.$emit('switchEvent',index);
+      }
+    }
+
+    events = {
+    }
+
+    onLoad() {
+      console.log(this.active);
+    }
+
+  }
+</script>

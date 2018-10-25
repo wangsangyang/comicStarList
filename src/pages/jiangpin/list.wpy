@@ -1,0 +1,109 @@
+<style lang="less">
+page{ background-color: #FAFCFE; }
+.cont-1{ font-size: 36rpx; padding: 30rpx 24rpx 0; }
+.cont-jiangpin{ 
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 8rpx;
+  .list{ width: 50%; text-align: center;  padding: 20rpx 16rpx 20rpx; overflow: hidden;
+    .inner{ padding: 20rpx 20rpx 30rpx; background-color: #fff; box-shadow: 0px 2px 20px 0px rgba(232,232,232,0.5); }
+  }
+  .row1{ 
+    height: 230rpx;
+    overflow: hidden;
+    image{ width: 100%; } 
+  }
+  .row2{ font-size: 34rpx; }
+  .row3{ 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    padding: 10rpx 0 15rpx;
+    font-size: 34rpx;
+    color: #FF7F7F;
+    .icon-youhuiquan{ width: 38rpx; }
+  }
+  .row4{ 
+    font-size: 34rpx; color: #FF7F7F; padding: 20rpx 0 0; position: relative; border-top: dashed 2rpx #ddd;
+    &::before{
+      content: ''; display: block; width: 40rpx; height: 40rpx; border-radius: 50rpx; background-color: #FAFCFE; position: absolute; left: -35rpx; top: -25rpx; z-index: 3;
+    }
+    &::after{
+      content: ''; display: block; width: 40rpx; height: 40rpx; border-radius: 50rpx; background-color: #FAFCFE; position: absolute; right: -35rpx; top: -25rpx;
+      z-index: 3;
+    }
+  }
+}
+</style>
+
+<template>
+    <view class="cont-1">新手专区</view>
+    <view class="cont-jiangpin">
+      <view class="list" @tap="linkDetail">
+          <view class="inner">
+              <view class="row1"><image mode='widthFix' class="icon" src="../../images/jiangpin1.png"/></view>
+              <view class="row2">零食收纳盒</view>
+              <view class="row3">
+                <image class='icon-youhuiquan' mode='widthFix' src='../../images/icon-youhuiquan.png'/>
+                <view class="s1">99</view>
+              </view>
+              <view class="row4">免费兑换</view>
+          </view>
+      </view>
+      <view class="list" @tap="linkDetail">
+          <view class="inner">
+              <view class="row1"><image mode='widthFix' class="icon" src="../../images/jiangpin2.png"/></view>
+              <view class="row2">零食收纳盒</view>
+              <view class="row3">
+                <image class='icon-youhuiquan' mode='widthFix' src='../../images/icon-youhuiquan.png'/>
+                <view class="s1">99</view>
+              </view>
+              <view class="row4">免费兑换</view>
+          </view>
+      </view>
+      <view class="list" @tap="linkDetail">
+          <view class="inner">
+              <view class="row1"><image mode='widthFix' class="icon" src="../../images/jiangpin3.png"/></view>
+              <view class="row2">零食收纳盒</view>
+              <view class="row3">
+                <image class='icon-youhuiquan' mode='widthFix' src='../../images/icon-youhuiquan.png'/>
+                <view class="s1">99</view>
+              </view>
+              <view class="row4">免费兑换</view>
+          </view>
+      </view>
+      <view class="list" @tap="linkDetail">
+          <view class="inner">
+              <view class="row1"><image mode='widthFix' class="icon" src="../../images/jiangpin4.png"/></view>
+              <view class="row2">零食收纳盒</view>
+              <view class="row3">
+                <image class='icon-youhuiquan' mode='widthFix' src='../../images/icon-youhuiquan.png'/>
+                <view class="s1">99</view>
+              </view>
+              <view class="row4">免费兑换</view>
+          </view>
+      </view>
+    </view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {util} from '@/js/util'
+
+  export default class JiangpinList extends wepy.page {
+    config = {
+      navigationBarTitleText: '兑换周边',
+    }
+
+    data = {
+    }
+
+    methods = {
+        //开始录音
+        linkDetail(){
+          wx.navigateTo({url: '../jiangpin/detail'}); 
+        }
+    }
+  }
+</script>

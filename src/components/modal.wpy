@@ -1,0 +1,83 @@
+<style lang="less">
+.confirmModal{
+  display: none;
+  &.show{ display: block; }
+  .container{
+    text-align: center;
+    background-color: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    .bg{ width: 70%; margin-top: -220rpx; }
+    .t1{ font-size: 34rpx; padding: 40rpx 0; }
+    .footer{
+      display: flex;
+      padding: 50rpx 20rpx;
+      .btn{ 
+        width: 50%; padding: 0 20rpx;
+        button{ display: block;height: 90rpx; line-height: 90rpx; color: #fff; border-radius: 10rpx; font-size: 32rpx; }
+        &:nth-child(1){ button{ background-color: #D3D3D3; } }
+        &:nth-child(2){ button{ background-color: #419BFF; background-image: linear-gradient(to right, #FA7298, #FCA86D); } }
+      }
+    }
+  }
+}
+</style>
+
+<template>
+    <view class="modal confirmModal {{selfclass}} {{show?'show':''}}">
+      <view class="container">
+          <image mode='widthFix' class="bg" src="{{img}}"/>
+          <view class="t1">{{content}}</view>
+          <view class="footer">
+            <view class='btn'><button @tap="close">取消</button></view> 
+            <view class='btn'><button @tap="sure">确定</button></view>  
+          </view>
+      </view>
+    </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class Modal extends wepy.component {
+
+    data = {
+    }
+
+    props = {
+      show: {
+        type: Boolean,
+        default: false
+      },
+      content: String,
+      selfclass: String,
+      img: String,
+    }
+
+    methods = {
+      close(){
+        console.log('关闭按钮');
+        this.show = false;
+        this.$emit('closeEvent', false);
+      },
+      sure(){
+        console.log('确定按钮');
+        this.$emit('sureEvent', false);
+      }
+    }
+
+    events = {
+      close: ()=>{
+        this.show = false;
+      },
+      open: ()=>{
+        this.show = true;
+      },
+      isCloseModalFn: isShow=>{
+        console.log(1);
+        this.show = isShow;
+      },
+    }
+
+  }
+</script>
