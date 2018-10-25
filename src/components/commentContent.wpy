@@ -1,0 +1,93 @@
+<template lang="wxml">
+    <view class="contentCon" >
+      <view style="overflow:auto">
+        <view class="picGood">
+             <image style="width:20rpx;height:20rpx;" src="../images/icon4.png"></image>
+        </view>
+        <view class="namePoint">
+          <text>{{converName}}</text>
+          <text>等{{namePoint.length}}人点赞</text>
+        </view>
+      </view>
+      <!-- 评论内容 -->
+      <view>
+        <!-- 加wx:key是为了不出警告 -->
+        <view class="commentCont"  wx:for="{{content}}" wx:for-item="item" wx:key="name">
+             {{item.name}} ：
+            <text class="nameCont">{{item.content}}</text>
+        </view>
+        <!-- 查看更多评论 -->
+        <view class="lookCon" @tap='lookCon'>
+          查看全部<text>52</text>条评论 &gt;
+        </view>
+      </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import {util} from '../js/util'
+export default class Comment extends wepy.component {
+    data = {};
+    props={
+      namePoint:{
+        type:Array,
+        default:"[]"
+      },
+      content:{
+        type:Array,
+        default:"[]"
+      }
+    };
+    computed = {
+      converName() {
+         if(this.namePoint.length == 0) return;
+         return this.namePoint.join(",")
+      }
+    };
+    methods = {
+      lookCon(){
+        let params = {
+              url: 'program/apply/addApplyWorkName',
+              data: {
+              }
+          };
+        util.$http(params).then(res => {
+          console.log(res);
+        })
+      }
+    };
+    events = {};
+}
+</script>
+
+<style lang="less">
+/** less **/
+.contentCon{
+  background-color:#F2F4F6;
+  overflow: auto;
+}
+.namePoint{
+  color: #FF7F7F;
+  font-size: 20rpx;
+  float: left;
+  margin-top:20rpx;
+}
+.nameCont{
+  color: #333;
+}
+.commentCont{
+  color: #FE8686;
+  font-size: 20rpx;
+  align: justify;
+  margin:10rpx 10rpx;
+}
+.picGood{
+  float: left;
+}
+.lookCon{
+ color: #FE8686;
+ font-size: 20rpx;
+ margin:15rpx;
+}
+</style>

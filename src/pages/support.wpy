@@ -1,26 +1,319 @@
+<style >
+.section{
+margin-bottom: 25rpx;
+overflow: auto;
+}
+.section_gap{
+  padding: 0 15px;
+}
+.page__title{
+    display: block;
+    font-size: 20px;
+}
+.playPauseAudio{
+   width: 70rpx;
+   height: 70rpx;
+}
+.silderAudio{
+  float: left;
+}
+.playButton{
+  float: left;
+  margin-right: 18rpx;
+}
+.timeSlider{
+  width:260rpx;
+  float: left;
+
+}
+.currentTimes{
+  font-size: 20rpx;
+  float: left;
+  margin-top: 20rpx;
+  color: #999999;
+}
+.zz{
+  opacity: 0.5;
+  background: #333;
+  position: absolute;
+  top:0rpx;
+  width:100%;
+  height:100%;
+  z-index: 100000
+}
+@media screen and (max-width:360px) {
+  .timeSlider{
+    width:260rpx;
+    float: left;
+    margin-top: -15rpx
+  }
+
+}
+.headCon{
+  background:white;
+  position: relative;
+}
+.headPic{
+  position: absolute;
+  top:0rpx;
+  width: 100%;
+  height: 100%;
+}
+.headSpic{
+  width: 326rpx;
+  height: 450rpx;
+}
+.headA{
+  display: flex;
+  padding:60rpx 24rpx 0 24rpx;
+}
+.headARbaG{
+  border-radius: 35rpx;
+  background: #eee;
+  border: 1px solid red;
+  display: flex;
+  font-size: 18rpx;
+  padding: 10rpx;
+  margin: 15rpx;
+  width: 360rpx
+}
+.fontSBred{font-size: 40rpx;color: #FF7F7F;}
+.headBPic{
+  display: flex;
+}
+.headBPic-Con{
+  font-size: 18rpx;
+  align-self: center;
+  padding-left: 15rpx;
+}
+.headBText{
+  font-size:20rpx;
+  color: #FF8C8C;
+  align-self: flex-end;
+}
+</style>
 <template>
-  <headPortrait :hisName.sync= "name" :srcPic.sync="src" :callTime.sync='time' :tapTime.sync="tapTime"> </headPortrait>
-  <view> <text>{{name}}{{src}}</text></view>
+    <view class="headCon">
+      <!-- 头部1 -->
+      <view class="headA">
+        <view style="flex:1">
+          <image class="headSpic" src="{{src}}"></image>
+        </view>
+        <view style="flex:1;font-size:20rpx;padding-top:15%">
+           <text style="font-size:72rpx;padding:6%;">九九九</text>
+            <view class="headARbaG">
+              <view style="width:70rpx">
+                <image style="width:60rpx;height:60rpx" src='../images/icon-xing.png'></image>
+              </view>
+              <view style="align-self:center;width:110rpx">
+                 <text style="padding-left:2rpx">本月星能值</text>
+              </view>
+              <view>
+                  <text class="fontSBred">133332</text>
+              </view>
+            </view>
+            <view class="headARbaG">
+              <view style="width:70rpx">
+                <image style="width:60rpx;height:60rpx" src='../images/icon-xing.png'></image>
+              </view>
+              <view style="align-self:center;width:50rpx">
+                 <text>总榜</text>
+              </view>
+              <view>
+                  <text class="fontSBred">第一名</text>
+              </view>
+            </view>
+        </view>
+      </view>
+     <!-- 头部2 -->
+      <view style="padding:0 25rpx">
+        <view style="background:#eee; padding:20rpx;padding-bottom:10rpx;display:flex">
+          <view class="headBPic">
+            <view>
+              <image style="width:64rpx;height:64rpx;border-radius:32rpx" src="{{src}}"> </image>
+            </view>
+            <view class="headBPic-Con">
+              <view>
+                <text style="font-weight:bold;font-size:25rpx">顶顶顶你</text>
+              </view>
+              <view class="headBText">
+                <text style="color:#333">今日贡献0星能值</text>
+                <text style="margin-left:10rpx">累计打CALL4天</text>
+                <text style="margin-left:10rpx">贡献5星能值</text>
+              </view>
+            </view>
+          </view>
+          <!-- 头部2头像完 -->
+          <view>
+          </view>
+          <view>
+            <button style="width:136rpx;height:70rpx;font-size:18rpx;color:white;background:#FF7F7F;line-height:64rpx">邀请好友</button>
+          </view>
+        </view>
+      </view>
+      <!-- 头部三 -->
+      <view>
+
+      </view>
+      <!-- 背景大图 -->
+      <!-- <image class="headPic" src="{{src}}"></image> -->
+    </view>
+    <view>
+      <headPortrait :hisName.sync= "name" :srcPic.sync="src" :callTime.sync='time' :tapTime.sync="tapTime"> </headPortrait>
+      <view style="margin:0rpx 50rpx;">
+         <!-- 音频图片 -->
+          <view wx:if="{{isType=='pic'}}">
+             <image style="width:476rpx;height:324rpx" src="{{srcAudio}}"></image>
+          </view>
+         <!-- 音频 -->
+        <view class="section section_gap" wx:if="{{isType=='audio'}}">
+          <view class="playButton">
+              <image class="playPauseAudio" src="{{isPlay?srcPlay:srcPause}}"  bindtap="playAudio"></image>
+          </view>
+          <view class="silderAudio">
+            <view style="height:0">
+                 <audio src="{{current.src}}"  action="{{audioAction}}"  bindtimeupdate="audioTimeUpdated"></audio>
+            </view>
+            <view class="currentTimes">
+              <text>{{currentTime}}</text>
+            </view>
+            <view class="timeSlider">
+              <slider style="width:85%" activeColor="#FCA76F" block-color="#333" color="#D8D8D8" block-size="12" bindchange="timeSliderChanged" />
+            </view>
+            <view class="currentTimes">
+              <text>{{durationTime}}</text>
+            </view>
+          </view>
+        </view>
+        <!-- 视频 -->
+        <view wx:if="{{isType=='video'}}">
+           <view style="position:relative">
+                <video style="width:100%" id="myVideo" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400"
+                    show-center-play-btn="false" poster="{{src}}"  controls></video>
+           </view>
+        </view>
+        <!-- 评论以及点赞 -->
+       <commentForwardingPoint></commentForwardingPoint>
+      </view>
+    </view>
 </template>
 <script>
 import wepy from 'wepy'
 import {util} from '../js/util'
 import HeadPortrait from '../components/headPortrait'
+import CommentForwardingPoint from '../components/commentForwardingPoint'
 
 export default class Support extends wepy.page{
   config={
     navigationBarTitleText:'应援页面个人名字'
   }
  data = {
-   name:'wwww',
+   name:'十三哥',
    time:22,
    src:"http://img.peipeilove.com/img/AnimeImage/2014/20141006/w_2014100614055455421.jpg",
-   tapTime:223
+   tapTime:223,
+   //音频
+   current: {
+    poster: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
+    name: '此时此刻',
+    author: '许巍',
+    src: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+    },
+    srcAudio:"http://img.peipeilove.com/img/AnimeImage/2014/20141006/w_2014100614055455421.jpg",//音频上面的图片
+   audioAction:{
+     method: 'pause'
+   },
+   currentTime:"00:00",
+   durationTime:"00:00",
+   currentDuration:0,
+   currentMethod :'pause',
+   sliderLength:0,//audio滚动条长度,
+   figSlider:false,//滚动条在未播放前先拉到位置
+   srcPlay:"../images/icon4.png",//播放按钮图
+   srcPause:"../images/icon2.png",//暂停按图
+   isPlay:true,
+   isType:'video',
+   //视频
+   coverVi:true
+
  }
+ //引用组件
  components = {
-   headPortrait:HeadPortrait
+   headPortrait:HeadPortrait,
+   commentForwardingPoint:CommentForwardingPoint
  }
 
+ //本页面方法
+ methods= {
+
+   //音频播放条
+   timeSliderChanged(e){
+     if (e.detail.value == 0)
+       return;
+    // if(this.currentMethod == 'pause'){
+    //   this.currentMethod ='play';
+    //   this.audioAction['method'] = this.currentMethod;
+    //   var that = this;
+    //   setTimeout(function(){
+    //     var time = that.currentDuration * e.detail.value / 100;
+    //             console.log(time,that.currentDuration,e.detail);
+    //     that.audioAction = {
+    //         method: 'setCurrentTime',
+    //         data: time
+    //     }
+    //   })
+    // }else {
+      this.sliderLength = e.detail.value;
+      if(this.currentMethod != 'play'){
+        return this.figSlider= true;
+      }
+      this.sliderLength = e.detail.value;
+      var time = this.currentDuration * (this.sliderLength/100);
+      this.audioAction = {
+          method: 'setCurrentTime',
+          data: time
+      }
+    // }
+
+   },
+
+   //动态更新audio的播放时间和获取播放audio的详细信息
+   audioTimeUpdated(e){
+     this.currentDuration = e.detail.duration;
+     //先点击滚动条拉到一定位置,然后再播放
+     if(this.figSlider){
+       this.figSlider =false;
+       var time = this.currentDuration * (this.sliderLength/100);
+       this.audioAction = {
+           method: 'setCurrentTime',
+           data: time
+       }
+     }
+     if(!e.detail.currentTime) return
+      //秒转换时分
+     this.currentTime = util.convertTimeToMin(e.detail.currentTime)
+     this.durationTime =util.convertTimeToMin(e.detail.duration);
+
+   },
+   //audio的播放和暂停
+   playAudio(){
+     if(this.currentMethod == 'play'){
+       this.currentMethod = 'pause';
+       this.isPlay = true;
+     }else {
+       this.isPlay = false;
+       this.currentMethod = 'play'
+     }
+      this.audioAction['method'] = this.currentMethod;
+  },
+  //视频
+  playVideo(){
+    this.videoContext.play();
+  }
+ }
+ onReady(res) {
+    this.videoContext = wx.createVideoContext('myVideo')
+  }
  onShow(){
    console.log(3333);
  }
