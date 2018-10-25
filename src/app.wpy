@@ -123,6 +123,8 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/index',
+      'pages/ali',
+      'pages/support',
       'pages/call',
       'pages/order/redeemCode',
       'pages/order/address',
@@ -146,7 +148,7 @@ export default class extends wepy.app {
       'pages/dabangGuize',
       'pages/myStarenergy',
       'pages/kefu',
-      'pages/support'
+
     ],
     window: {
       backgroundTextStyle: 'light',

@@ -1,0 +1,73 @@
+<style>
+.comment{flex:1;}
+.comment-con{
+  display: flex;
+}
+.commentPic{
+  width: 36rpx;
+  height: 34rpx;
+  float: left;
+  flex:1
+}
+.commentText{
+  font-size: 20rpx;
+  float: left;
+}
+
+</style>
+<template lang="wxml">
+   <view class="comment-con" >
+     <view class="comment" >
+       <image class="commentPic" src="../images/icon-search.png"></image>
+       <text class="commentText">点赞</text>
+     </view>
+     <view class="comment" >
+       <view style="margin:0 25%">
+       <image class="commentPic" src="../images/icon-search.png"></image>
+       <text class="commentText">评论</text>
+       </view>
+     </view>
+     <view class="comment">
+       <text class="commentText" style="float:right">转发</text>
+       <image class="commentPic" style="float:right" src="../images/icon-search.png"></image>
+     </view>
+   </view>
+   <view>
+   <commentContent :namePoint="namesPoint" :content="contents"></commentContent>
+   </view>
+
+</template>
+<script>
+    import wepy from 'wepy'
+    import Comment from './commentContent'
+    import {util} from '../js/util'
+    export default class CommentForwardingPoint extends wepy.component {
+      data ={
+        namesPoint:['dssd','dsf','sdf','sss'],
+        contents:[{name:'console.error',content:'sddddd'},{name:'22nsole.error',content:'sddddd'},{name:'console.error',content:'sddeeeedddd'}]
+      };
+      props = {
+        hisName:{
+        type: String,
+        default: 'null'
+      },
+       srcPic:{
+       type: String,
+       default: 'null'
+      },
+       callTime:{
+       type: Number,
+       default: 'null'
+      },
+     tapTime:{
+       type: Number,
+       default: 'null'
+      }
+    };
+     components={
+       commentContent:Comment
+     }
+
+
+    }
+</script>

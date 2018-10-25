@@ -1,9 +1,9 @@
 const util = {
-	api: 'http://192.168.0.100:8090/', 
-    //api: 'https://api.jiayiworld.com/', 
-    //api: 'https://test.jiayiworld.com/',    
+	api: 'http://192.168.0.100:8090/',
+    //api: 'https://api.jiayiworld.com/',
+    //api: 'https://test.jiayiworld.com/',
     data: {
-        //timestamp: new Date().getTime(), 
+        //timestamp: new Date().getTime(),
     },
     $http: function(params){
     	const that = this;
@@ -24,7 +24,7 @@ const util = {
 	                }
 	            },
 	            fail: function(res){
-	                reject(res);    
+	                reject(res);
 	                wx.showToast({
 	                    title: '服务器异常',
 	                    icon: 'none',
@@ -33,7 +33,7 @@ const util = {
 	            },
 	            complete: function(res){
 	                that.navloading('close');
-	                that.loading('close');  
+	                that.loading('close');
 	            },
 	        });
     	});
@@ -75,6 +75,18 @@ const util = {
 	        });
 	    }
 	},
+	 convertTimeToMin(e){
+		 let  currentTi = Math.floor(e);
+		 let currentTimeHour = 0;
+		 let currentTimeMin = 0;
+		 let currentTimeSec = 0 ;
+		 currentTimeHour = parseInt(currentTi/3600);
+		 currentTimeMin = parseInt((currentTi-currentTimeHour*3600)/60);
+		 currentTimeSec = parseInt(currentTi -(currentTimeHour*3600)-(currentTimeMin*60));
+		 if(currentTimeMin<10) currentTimeMin = "0"+currentTimeMin;
+		 if(currentTimeSec<10) currentTimeSec = "0"+currentTimeSec;
+		 return  currentTimeMin+':'+currentTimeSec;
+	 }
 }
 
 export {util}
