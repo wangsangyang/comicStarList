@@ -780,7 +780,7 @@ page{
           userInfo: this.userInfo,
           money: this.money
         });
-        //this.getTotalRank(1);
+        this.getTotalRank(1);
     }
     
   }
