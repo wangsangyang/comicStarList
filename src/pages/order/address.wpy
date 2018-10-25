@@ -1,0 +1,72 @@
+<style lang="less">
+page{ background-color: #FAFCFE; padding: 0 24rpx 25rpx; }
+
+.cont-1{ 
+  padding: 10rpx 20rpx; margin-top: 24rpx; background-color: #fff; box-shadow: 0px 2px 20px 0px rgba(232,232,232,0.5); overflow: hidden; 
+  .row1{ font-size: 34rpx; padding: 15rpx 0; }
+  .footer{ margin-top: 20rpx; font-size: 28rpx; padding: 20rpx 0 15rpx; border-top: solid 2rpx #bbb; text-align: right;
+      .btn{
+        display: inline-block; padding: 10rpx 30rpx; color:#fff; border-radius: 8rpx; margin-left: 35rpx; background: linear-gradient(to right, #FA7298, #FCA86D);
+        &:nth-child(2){ background: #ff5353; }
+      }
+  }
+}
+</style>
+
+<template>
+
+    <view class="cont-1">
+        <view class="row1">收件人：郭新 13693999393</view>
+        <view class="row1">地 址：北京八里沟17号楼102</view>
+        <view class="footer">
+            <view class="btn" @tap="getAddress">编辑</view>
+            <view class="btn">删除</view>
+        </view>
+    </view>
+    
+    <view class="cont-1">
+        <view class="row1">收件人：郭新 13693999393</view>
+        <view class="row1">地 址：北京八里沟17号楼102</view>
+        <view class="footer">
+            <view class="btn" @tap="getAddress">编辑</view>
+            <view class="btn">删除</view>
+        </view>
+    </view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {util} from '@/js/util'
+
+  export default class OrderAddress extends wepy.page {
+    config = {
+      navigationBarTitleText: '我的地址',
+    }
+
+    data = {
+    }
+
+    methods = {
+        //获取微信地址
+        getAddress(){
+            const that = this;
+            wx.chooseAddress({
+                success: allAddressInfo=>{
+                    console.log(allAddressInfo);
+                    this.showAddress = true;
+                    this.userName = allAddressInfo.userName;
+                    this.telNumber = allAddressInfo.telNumber;
+                    this.detailAddress = allAddressInfo.provinceName + allAddressInfo.cityName + allAddressInfo.countyName + allAddressInfo.detailInfo;
+                    this.setData({
+                        showAddress: this.showAddress, 
+                        userName: this.userName,
+                        telNumber: this.telNumber,
+                        detailAddress: this.detailAddress,
+                    });
+                }
+            })
+        },
+    }
+  }
+</script>

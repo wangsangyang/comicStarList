@@ -1,0 +1,243 @@
+<style lang="less">
+page{ background-color: #FAFCFE; }
+.cont-1{ 
+  image{ width: 100%; }
+}
+.cont-2{ 
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  margin: -20rpx 24rpx 0;
+  padding: 40rpx 20rpx;
+  background-color: #fff;
+  box-shadow: 0px 0px 20px 0px rgba(232,232,232,0.5); 
+  border-radius: 10rpx;
+  .row1{ flex: 1; display: flex;
+      .t2{ font-size: 36rpx; }
+      .t2{ 
+        display: flex;
+        align-items: center;
+        font-size: 28rpx;
+        color: #FF7F7F;
+        .icon-youhuiquan{ width: 40rpx; margin: 0 0 0 20rpx; }
+      }
+  }
+  .row2{ font-size: 36rpx; }
+}
+
+.cont-record{
+  margin: 20rpx 24rpx 0;
+  padding: 30rpx 26rpx;
+  background-color: #fff;
+  box-shadow: 0px 0px 20px 0px rgba(232,232,232,0.5); 
+  .header{ font-size: 36rpx; border-bottom: solid 2rpx #ddd; padding: 0 0 10rpx; }
+  .bodyer{ padding: 15rpx 0; height: 240rpx; overflow: auto; }
+  .row{ 
+    display: flex;
+    align-items: center;
+    padding: 8rpx 0;
+    .t1{ 
+        width: 50rpx; height: 50rpx; border-radius: 50%; background-color: #eee; overflow: hidden; 
+        .icon{ width: 100%; }
+    }
+    .t2{ font-size: 28rpx; color: #999; flex: 1; padding: 0 0 0 180rpx; }
+    .t3{ font-size: 28rpx; color: #999; width: 250rpx; }
+  }
+}
+
+.cont-norecord{
+  margin: 20rpx 24rpx 0;
+  text-align: center;
+  padding: 100rpx 0;
+  background-color: #fff;
+  box-shadow: 0px 0px 20px 0px rgba(232,232,232,0.5); 
+  image{ width: 35%; }
+}
+
+.cont-3{
+  margin: 20rpx 24rpx 0;
+  padding: 30rpx 26rpx 10rpx;
+  background-color: #fff;
+  box-shadow: 0px 0px 20px 0px rgba(232,232,232,0.5); 
+  .header{ font-size: 36rpx; border-bottom: solid 2rpx #ddd; padding: 0 0 10rpx; }
+  .bodyer{ padding: 15rpx 0; }
+  .row{ 
+    padding: 8rpx 0; font-size: 28rpx; color: #333;
+    text{ color: #999; }
+  }
+}
+
+.cont-4{
+  margin-top: 20rpx;
+  padding: 0 24rpx;
+  text-align: center;
+  .btn{ height: 90rpx; line-height: 90rpx; background-color: #419BFF; color: #fff; border-radius: 10rpx; font-size: 32rpx; background: linear-gradient(to right, #FA7298, #FCA86D); }
+  .row1{ 
+    margin-top: 100rpx; display: flex; font-size: 26rpx; color: #333; padding: 25rpx 0; justify-content: center; 
+    .t2{ display: flex; align-items: center; justify-content: center; color: #FF7F7F; margin-left: 20rpx; }
+    .icon{ width: 28rpx; height: 28rpx; line-height: 24rpx; text-align: center; font-size: 24rpx; border: solid 2rpx #FF7F7F; border-radius: 50%; margin-left: 8rpx; }
+  }
+  .msg1{ font-size: 26rpx; color: #999; padding: 10rpx 0 30rpx; }
+}
+
+/*confirm弹窗*/
+.confirmModal{
+  .container{
+    text-align: center;
+    background-color: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    .bg{ width: 70%; margin-top: -220rpx; }
+    .t1{ font-size: 34rpx; padding: 40rpx 0; }
+    .footer{
+      display: flex;
+      padding: 50rpx 20rpx;
+      .btn{ 
+        width: 50%; padding: 0 20rpx;
+        button{ display: block;height: 90rpx; line-height: 90rpx; color: #fff; border-radius: 10rpx; font-size: 32rpx; }
+        &:nth-child(1){ button{ background-color: #D3D3D3; } }
+        &:nth-child(2){ button{ background-color: #419BFF; background-image: linear-gradient(to right, #FA7298, #FCA86D); } }
+      }
+    }
+  }
+}
+</style>
+
+<template>
+
+    <view class="cont-1"><image mode='widthFix' class="icon" src="../../images/jiangpin1.png"/></view>
+    <view class="cont-2">
+        <view class="row1">
+          <view class="t1">卡通毛巾</view>
+          <view class="t2">
+            <image class='icon-youhuiquan' mode='widthFix' src='../../images/icon-youhuiquan.png'/>
+            <view class="s1">99</view>
+          </view>
+        </view>
+        <view class="row2">剩余：0</view>
+    </view>
+
+    <view class="cont-record">
+        <view class="header">兑换记录</view>
+        <view class="bodyer">
+            <view class="row">
+              <view class="t1"><image class='icon' mode='widthFix' src='../../images/share-bg-xj.png'/></view>
+              <view class="t2">维**</view>
+              <view class="t3">2018-09-10 12:23</view>
+            </view>
+            <view class="row">
+              <view class="t1"><image class='icon' mode='widthFix' src='../../images/share-bg-xj.png'/></view>
+              <view class="t2">维**</view>
+              <view class="t3">2018-09-10 12:23</view>
+            </view>
+            <view class="row">
+              <view class="t1"><image class='icon' mode='widthFix' src='../../images/share-bg-xj.png'/></view>
+              <view class="t2">维**</view>
+              <view class="t3">2018-09-10 12:23</view>
+            </view>
+            <view class="row">
+              <view class="t1"><image class='icon' mode='widthFix' src='../../images/share-bg-xj.png'/></view>
+              <view class="t2">维**</view>
+              <view class="t3">2018-09-10 12:23</view>
+            </view>
+        </view>
+    </view>
+
+    <view class="cont-norecord"><image class='icon' mode='widthFix' src='../../images/ku.png'/></view>
+
+    <view class="cont-3" wx:if="{{showAddress}}" @tap="getAddress">
+        <view class="header">我的地址</view>
+        <view class="bodyer">
+            <view class="row">收件人： {{userName}} <text>{{telNumber}}</text></view>
+            <view class="row">地  址： {{detailAddress}}</view>
+        </view>
+    </view>
+
+    <view class="cont-4">
+        <view class="row1" @tap="getAddress" wx:if="{{!showAddress}}">
+          <view class="t1">您还没有填写收货地址</view> 
+          <view class="t2"><text>马上去填写</text><text class='icon'>+</text></view>
+        </view>
+        <view class="btn" @tap="showModalFn">现金券不足，快去邀请好友吧</view>
+        <view class="msg1">免费兑换商品，暂不支持退换货</view>
+    </view>
+
+
+
+    <!-- 确认弹窗 -->
+<!--     <view class="modal confirmModal">
+      <view class="container">
+          <image mode='widthFix' class="bg" src="../../images/bg2.png"/>
+          <view class="t1">兑换此物品需要10元代金券</view>
+          <view class="footer">
+            <view class='btn'><button>取消</button></view> 
+            <view class='btn'><button>确定</button></view>  
+          </view>
+      </view>
+    </view> -->
+
+    <modal :selfclass="modalClass" :img="imgurl" :show="isModalShow" :content="modalContent" @closeEvent.user="closeModalFn" @sureEvent.user="sureModalFn"></modal>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {util} from '@/js/util'
+  import Modal from '@/components/modal'
+
+  export default class JiangpinDetail extends wepy.page {
+    config = {
+      navigationBarTitleText: '商品详情',
+    }
+
+    data = {
+      showAddress: false,
+      userName: '',
+      telNumber: '',
+      detailAddress: '',
+      modalClass: 'sureDuijiangModal',
+      imgurl: '../../images/bg2.png',
+      isModalShow: false,
+      modalContent: '兑换此物品需要10元代金券',
+    }
+
+    components = {
+      modal: Modal,
+      modals: Modal
+    }
+
+    methods = {
+        //获取微信地址
+        getAddress(){
+            const that = this;
+            wx.chooseAddress({
+                success: allAddressInfo=>{
+                    console.log(allAddressInfo);
+                    this.showAddress = true;
+                    this.userName = allAddressInfo.userName;
+                    this.telNumber = allAddressInfo.telNumber;
+                    this.detailAddress = allAddressInfo.provinceName + allAddressInfo.cityName + allAddressInfo.countyName + allAddressInfo.detailInfo;
+                    this.setData({
+                        showAddress: this.showAddress, 
+                        userName: this.userName,
+                        telNumber: this.telNumber,
+                        detailAddress: this.detailAddress,
+                    });
+                }
+            })
+        },
+        showModalFn(){
+          this.$broadcast('open');
+        },
+        closeModalFn(isShow, event){
+          console.log('关闭');
+        },
+        sureModalFn(isShow, event){
+          console.log(isShow);
+          this.$broadcast('close');
+        }
+    }
+  }
+</script>

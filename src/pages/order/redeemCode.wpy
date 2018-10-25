@@ -1,0 +1,78 @@
+<style lang="less">
+page{ background-color: #FAFCFE; }
+
+.cont-1{ 
+  padding: 10rpx 0; margin-top: 30rpx; background-color: #fff; overflow: hidden; 
+  .row1{ font-size: 34rpx; padding: 15rpx 30rpx; border-top: solid 2rpx #eee; border-bottom: solid 2rpx #eee;
+      input{ height: 60rpx; }
+   }
+  .footer{ margin-top: 40rpx; font-size: 34rpx; padding: 20rpx 24rpx 0; text-align: center;
+      .btn{
+        display: block; padding: 25rpx; color:#fff; border-radius: 8rpx; background: linear-gradient(to right, #FA7298, #FCA86D);
+      }
+  }
+}
+
+.jihuoModal .container{
+  .t1{ padding: 20rpx 0; }
+  .bg{ width:130rpx; margin-top:40rpx; }
+}
+
+</style>
+
+<template>
+
+    <view class="cont-1">
+        <view class="row1"><input bindinput="bindKeyInput" placeholder="请输入奖励激活码，不区分大小写"/></view>
+        <view class="footer">
+            <view class="btn" @tap="jihuoFn">激活</view>
+        </view>
+    </view>
+
+    <modal :selfclass="modalClass" :img="imgurl" :show="isModalShow" :content="modalContent" @sureEvent.user="sureModalFn"></modal>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {util} from '@/js/util'
+  import Modal from '@/components/modal'
+
+  export default class RedeemCode extends wepy.page {
+    config = {
+      navigationBarTitleText: '奖励激活码',
+    }
+
+    components = {
+      modal: Modal,
+    }
+
+    data = {
+      modalClass: 'jihuoModal',
+      imgurl: '../../images/icon-guoqi.png',
+      isModalShow: false,
+      modalContent: '激活码已过期！',
+    }
+
+    methods = {
+      jihuoFn(){
+        this.$broadcast('open');
+
+        wx.showModal({
+          title: '',
+          showCancel: false,
+          confirmText: '我知道了',
+          confirmColor: '#FF7F7F',
+          content: '激活码已过期！',
+          success (res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      }
+    }
+  }
+</script>

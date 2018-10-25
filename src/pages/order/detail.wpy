@@ -1,0 +1,118 @@
+<style lang="less">
+page{ background-color: #FAFCFE; padding: 0 24rpx 25rpx; }
+.cont-2{ 
+  padding: 30rpx 20rpx; margin-top: 24rpx; background-color: #fff; box-shadow: 0px 2px 20px 0px rgba(232,232,232,0.5); overflow: hidden; 
+  .header{ font-size: 24rpx; color:#FF7F7F; padding: 0 0 30rpx; border-bottom: solid 2rpx #bbb }
+  .bodyer{ display: flex; padding: 35rpx 0 20rpx; }
+  .left{ 
+    width: 160rpx;
+    height: 160rpx;
+    overflow: hidden;
+    image{ display: inline-block; width: 100%; vertical-align: middle; } 
+    &::before{
+      content: ''; display: inline-block; width: 0; height: 100%; vertical-align: middle;
+    }
+  }
+  .right{ padding: 0 0 0 60rpx; position: relative; }
+  .row1{ font-size: 34rpx; }
+  .row2{ 
+    position: absolute;
+    bottom: 0;
+    display: flex; 
+    align-items: center;
+    font-size: 34rpx;
+    color: #FF7F7F;
+    .icon-youhuiquan{ width: 38rpx; }
+  }
+}
+
+.cont-1{ 
+  display: flex; align-items: center; padding: 30rpx 60rpx 60rpx; margin-top: 24rpx; background-color: #fff; box-shadow: 0px 2px 20px 0px rgba(232,232,232,0.5); overflow: hidden; 
+  .circle{ 
+    width:36rpx; position: relative; 
+    .icon{ display: block; width:36rpx; height: 36rpx; border: solid 11rpx #999; border-radius: 50%; background-color: #fff; }
+    .text{ display: block; font-size: 24rpx; position: absolute; top: 40rpx; left: 0; white-space: nowrap; text-indent: -20rpx; color: #999; }
+    &.active{ 
+      .icon{ border: solid 11rpx #FF7F7F; }
+      .text{ color: #FF7F7F; }
+    }
+  }
+  .line{ flex: 1; height: 2rpx; background-color: #999; }
+}
+
+.cont-3{ 
+  padding: 20rpx 20rpx; margin-top: 24rpx; background-color: #fff; box-shadow: 0px 2px 20px 0px rgba(232,232,232,0.5); overflow: hidden; 
+  .row1{ font-size: 24rpx; color: #333; padding: 15rpx 10rpx; }
+}
+</style>
+
+<template>
+
+    <view class="cont-1">
+        <view class="circle active">
+            <text class="icon"></text>
+            <text class="text">已兑换</text>
+        </view>
+        <view class="line"></view>
+        <view class="circle">
+            <text class="icon"></text>
+            <text class="text">待发货</text>
+        </view>
+        <view class="line"></view>
+        <view class="circle">
+            <text class="icon"></text>
+            <text class="text">已收货</text>
+        </view>
+    </view>
+
+    <view class="cont-2">
+        <view class="header">宝贝已兑换，请等待发货哦！</view>
+        <view class="bodyer">
+            <view class="left"><image mode='widthFix' class="icon" src="../../images/jiangpin1.png"/></view>
+            <view class="right">
+                <view class="row1">佐助正品手办 1X1 真人大小</view>
+                <view class="row2">
+                    <image class='icon-youhuiquan' mode='widthFix' src='../../images/icon-youhuiquan.png'/>
+                    <view class="s1">99</view>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="cont-3">
+        <view class="row1">送出用户：动漫明星榜</view>
+        <view class="row1">图层兑换用户：郭新</view>
+        <view class="row1">订单编号：2222222222222</view>
+        <view class="row1">发货方式：发货人支付邮费</view>
+        <view class="row1">物流公司：韵达快递</view>
+        <view class="row1">物流单号：34333333</view>
+    </view>
+
+    <view class="cont-3">
+        <view class="row1">交易时间：2018-09-17 11:54:14</view>
+        <view class="row1">收货人： 郭新 13555555555</view>
+        <view class="row1">收货地址： 北京八里沟17号楼102</view>
+    </view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {util} from '@/js/util'
+
+  export default class OrderDetail extends wepy.page {
+    config = {
+      navigationBarTitleText: '订单详情',
+    }
+
+    data = {
+    }
+
+    methods = {
+        //开始录音
+        linkDetail(){
+          wx.navigateTo({url: '../order/detail'}); 
+        }
+    }
+  }
+</script>

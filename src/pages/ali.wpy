@@ -1,20 +1,36 @@
-<!-- // <style lang="less">
-// page{ padding: 20rpx 0 0; background-color: #eee; }
-// .cont-1{
-//   background-color: #fff;
-//   .list{
-//     display: flex;
-//     padding: 30rpx 20rpx;
-//     font-size: 30rpx;
-//     color: #303030;
-//     border-bottom: solid 1rpx #f3f3f3;
-//     .col-1{ }
-//     .col-2{ flex: 1; color: #0fb6f7; }
-//   }
-// }
-// </style>
-//
+<style lang="less">
+page{ padding: 20rpx 0 0; background-color: #eee; }
+.cont-1{
+  background-color: #fff;
+  .list{
+    display: flex;
+    padding: 30rpx 20rpx;
+    font-size: 30rpx;
+    color: #303030;
+    border-bottom: solid 1rpx #f3f3f3;
+    .col-1{ }
+    .col-2{ flex: 1; color: #0fb6f7; }
+  }
+}
+</style>
 
+<template>
+
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Ali extends wepy.page {
+    config = {
+      navigationBarTitleText: '测试上传',
+    }
+  
+  }
+</script> 
+
+<<<<<<< HEAD
 // <script>
 //   import wepy from 'wepy'
 //   import {util} from '../js/util'
@@ -162,3 +178,5 @@
        }
      }
   </script>
+=======
+>>>>>>> ae778d570032f1981c0204c01d4436fc02f1312b
