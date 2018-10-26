@@ -12,8 +12,16 @@
 
      export default class Ali extends wepy.page {
 
+      data = {
+        aid: '',
+        policy: '',
+        signature: '',
+      }
+
        methods = {
            upimg(){
+            let that = this;
+
              console.log(33333);
              var aid = "LTAIiQn09Qv72u05";
              var aky="tyZcMykS2emGf2YrX0xEDVMyWKV8wP";
@@ -21,7 +29,7 @@
              var policyText = {
                  "expiration": "2020-01-01T12:00:00.000Z",
                  "conditions": [
-                 ["content-length-range", 0, 10485760000]
+                    ["content-length-range", 0, 10485760000]
                  ]
              };
              this.aid =aid;
@@ -68,14 +76,14 @@
                     name: 'file',
                     formData: {
                       name: tempFilePath,
-                      key: "test/${filename}",
-                      policy:this.policy,
-                      OSSAccessKeyId: this.aid,
+                      key: "test/video/",
+                      policy: that.policy,
+                      OSSAccessKeyId: that.aid,
                       success_action_status: "200",
-                      signature: this.signature,
+                      signature: that.signature,
                     },
                     success: function (res) {
-                      console.log('chooseImage success, temp path is: ', tempFilePath)
+                      console.log('上传成功: ', tempFilePath)
                       wx.showToast({
                         title: "上传成功",
                         icon: 'success',

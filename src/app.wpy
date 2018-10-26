@@ -121,8 +121,8 @@ setStore(store)
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/index',
       'pages/ali',
+      'pages/index',
       'pages/support',
       'pages/call',
       'pages/order/redeemCode',
