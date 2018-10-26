@@ -14,23 +14,7 @@ page{ padding: 20rpx 0 0; background-color: #eee; }
 }
 </style>
 
-<template>
 
-
-</template>
-
-<script>
-  import wepy from 'wepy'
-
-  export default class Ali extends wepy.page {
-    config = {
-      navigationBarTitleText: '测试上传',
-    }
-  
-  }
-</script> 
-
-<<<<<<< HEAD
 // <script>
 //   import wepy from 'wepy'
 //   import {util} from '../js/util'
@@ -68,11 +52,12 @@ page{ padding: 20rpx 0 0; background-color: #eee; }
 //       });
 //     }
 //   }
-  // </script> -->
+  // </script> 
+
   <template>
       <button @tap='upimg'>上传图片</button>
   </template>
-  <!--  -->
+
   <script>
        import wepy from 'wepy'
        import {util} from '../js/util'
@@ -80,6 +65,10 @@ page{ padding: 20rpx 0 0; background-color: #eee; }
        import {Crypto} from  "../js/crypto"
 
      export default class Ali extends wepy.page {
+
+    config = {
+      navigationBarTitleText: '测试上传',
+    }
        data ={
 
        }
@@ -166,17 +155,7 @@ page{ padding: 20rpx 0 0; background-color: #eee; }
                 }
               })
 
-
-
-
-
-
-
-
-             //////
            }
        }
      }
   </script>
-=======
->>>>>>> ae778d570032f1981c0204c01d4436fc02f1312b
