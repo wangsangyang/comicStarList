@@ -6,29 +6,29 @@
 @color: #303030;
 @activecolor: #419BFF;
 @rotate: 15deg;
-page{ 
-  padding: 0 0 20rpx; 
+page{
+  padding: 0 0 20rpx;
   color:  @color;
 }
 .cont-banner{
   .img{ display: block; width: 100%; }
 }
-.main{ 
+.main{
   overflow: hidden;
 }
 
-.cont-search{ 
-  padding: 20rpx 20rpx; 
-  .icon-search{ width: 26rpx; position: absolute; top: 40rpx; left: 32rpx; z-index: 2; } 
+.cont-search{
+  padding: 20rpx 20rpx;
+  .icon-search{ width: 26rpx; position: absolute; top: 40rpx; left: 32rpx; z-index: 2; }
   .box{ display: flex; }
   .searchkey{ flex: 1; padding: 0 0 0 55rpx; font-size: 28rpx; height: 68rpx; background-color: #f1f1f2; border-radius: 16rpx; }
   .placeholder{ color: #999; font-size: @fontsize26; }
 }
 
-.cont-guanzhu{ 
+.cont-guanzhu{
     margin: 5rpx 0 -70rpx;
-    .box{ 
-      display: flex; 
+    .box{
+      display: flex;
       justify-content: flex-end;
       align-items: center;
       transform: translate(170rpx,0);
@@ -53,7 +53,7 @@ page{
   padding: 0 0 18rpx;
   margin-top: 25rpx;
   position: relative;
-  .duihuan{ 
+  .duihuan{
     position: absolute;
     left: 440rpx;
     top: 0rpx;
@@ -62,8 +62,8 @@ page{
     color: #999;
     &.active{ color: #000; }
   }
-  .tabs{ 
-    display: inline-block; 
+  .tabs{
+    display: inline-block;
     padding: 0 0 10rpx;
     color: #999;
     .list{
@@ -85,18 +85,18 @@ page{
       padding: 11rpx;
       image{ width: 100%; height: 100%; }
     }
-    .active{ 
-      image{ transform: scale(1.12); } 
+    .active{
+      image{ transform: scale(1.12); }
     }
   }
   .item3{
     position: relative;
     font-size: 24rpx;
     padding: 0 24rpx;
-    .time{ 
-      color: #888; 
+    .time{
+      color: #888;
     }
-    .guize{ 
+    .guize{
       float: right;
       color: #FF7F7F;
     }
@@ -116,9 +116,9 @@ page{
       overflow-x: auto;
       .box{ width: 500000px; }
   }
-  .list{ 
+  .list{
     float: left;
-    margin: 0 10rpx; 
+    margin: 0 10rpx;
     text-align: center;
     .t1{
        float: left;
@@ -140,10 +140,10 @@ page{
     padding: 70rpx 10rpx 10rpx;
     box-shadow:0px 2px 20px 0px rgba(232,232,232,0.5);
     .left{
-      width: 80rpx; 
+      width: 80rpx;
       text-align: center;
       color: #666;
-      font-size: 40rpx; 
+      font-size: 40rpx;
       .icon{ width: 100%; display: block; }
     }
     .middle{
@@ -174,9 +174,9 @@ page{
         .imgbox{ width: 100%; height: auto; border-radius: 0; }
       }
     }
-  }   
+  }
 }
-.cont-jiangpin{ 
+.cont-jiangpin{
   display: flex;
   flex-wrap: wrap;
   padding: 15rpx 0;
@@ -184,12 +184,12 @@ page{
   .list{ width: 50%; text-align: center;  padding: 70rpx 30rpx 20rpx;
     .inner{ padding: 0 20rpx 40rpx; box-shadow:0px 2px 20px 0px rgba(232,232,232,0.5); }
   }
-  .row1{ 
-    image{ width: 100%; } 
+  .row1{
+    image{ width: 100%; }
   }
   .row2{ font-size: 34rpx; }
-  .row3{ 
-    display: flex; 
+  .row3{
+    display: flex;
     justify-content: center;
     align-items: center;
     font-size: 28rpx;
@@ -200,27 +200,27 @@ page{
 }
 
 
-.modalRedXJ{ 
-  .container{ 
+.modalRedXJ{
+  .container{
     .t2{ padding: 150rpx 0 100rpx; }
-    .imgbox{ 
+    .imgbox{
       width: 150rpx; height: 150rpx; margin-right: 30rpx; overflow: hidden;
       .icon{ display: block; width: 100%; }
     }
   }
 }
-.modalRedXJKai{ 
-  .container{ 
+.modalRedXJKai{
+  .container{
      padding: 160rpx 0 80rpx;
      .touxiang{
-      width: 150rpx; 
+      width: 150rpx;
       height: 150rpx;
       background: none;
       .icon{ display: block; width: 100%; }
     }
     .t1{ padding: 50rpx 0 0; }
-    .t2{ 
-      padding: 10rpx 0 100rpx; 
+    .t2{
+      padding: 10rpx 0 100rpx;
       font-size: @fontsize26;
       font-weight: bold;
       position: relative;
@@ -232,13 +232,13 @@ page{
   }
 }
 
-.modalRedXN{ 
-  .container{ 
+.modalRedXN{
+  .container{
     .t2{ padding: 150rpx 0 100rpx; }
   }
 }
-.modalRedXNKai{ 
-  .container{ 
+.modalRedXNKai{
+  .container{
     .msg{ font-size: 24rpx; position:relative; z-index:2; }
     .btns{ padding: 20rpx 80rpx 0; }
   }
@@ -268,7 +268,7 @@ page{
         <view class="t2"><text>10</text> 元</view>
         <view class="btns">
           <!-- <text class="btn" @tap="linkMyRed(1)">邀请好友助力</text> -->
-          <button class='btn' open-type="share" data-redtype="1">邀请好友助力</button> 
+          <button class='btn' open-type="share" data-redtype="1">邀请好友助力</button>
         </view>
         <!-- <view class="msg">10个好友助力，直接微信红包提现</view> -->
         <image mode='widthFix' class="bg" src="../images/hong1.png"/>
@@ -294,7 +294,7 @@ page{
         <view class="msg">金额增长无上限的秘诀</view>
         <view class="btns">
           <!-- <text class="btn" @tap="linkMyRed(2)">邀请好友帮开</text> -->
-          <button class='btn' open-type="share" data-redtype="2">邀请好友帮开</button> 
+          <button class='btn' open-type="share" data-redtype="2">邀请好友帮开</button>
         </view>
         <image mode='widthFix' class="bg" src="../images/hong2.png"/>
       </view>
@@ -345,8 +345,8 @@ page{
         <block wx:if="{{showJiangpin}}">
             <view class="items">
               <view class="list {{typeActive==1?'active':''}}" @tap="getTypeFn(1)"><image mode='widthFix' src="../images/tab1.png"/></view>
-              <view class="list {{typeActive==2?'active':''}}" @tap="getTypeFn(2)"><image mode='widthFix' src="../images/tab2.png"/></view>   
-              <view class="list {{typeActive==4?'active':''}}" @tap="getTypeFn(4)"><image mode='widthFix' src="../images/tab3.png"/></view>  
+              <view class="list {{typeActive==2?'active':''}}" @tap="getTypeFn(2)"><image mode='widthFix' src="../images/tab2.png"/></view>
+              <view class="list {{typeActive==4?'active':''}}" @tap="getTypeFn(4)"><image mode='widthFix' src="../images/tab3.png"/></view>
             </view>
             <view class="item3">
                 <text class="time">{{time}}</text>
@@ -432,7 +432,7 @@ page{
 
   </view><!-- end main-->
 
-  <navTab @switchEvent.user="switchNavtab"></navTab>
+  <!-- <navTab @switchEvent.user="switchNavtab"></navTab> -->
 
 </template>
 
@@ -446,7 +446,7 @@ page{
     config = {
       navigationBarTitleText: '动漫明星榜',
       navigationBarBackgroundColor: '#ff3366',
-      navigationBarTextStyle: 'white'     
+      navigationBarTextStyle: 'white'
     }
 
     components = {
@@ -490,11 +490,11 @@ page{
       /* 分享给用户 */
       onShareAppMessage(res) {
           //console.log(res);
-          let userInfo = wx.getStorageSync('userInfo');  
-          let money = wx.getStorageSync('money');       
-          let uId = userInfo.uId;     
-          let avatar = userInfo.avatar;  
-          let userName = userInfo.userName;    
+          let userInfo = wx.getStorageSync('userInfo');
+          let money = wx.getStorageSync('money');
+          let uId = userInfo.uId;
+          let avatar = userInfo.avatar;
+          let userName = userInfo.userName;
           let redEnvelopeId = money.redEnvelopeId;
           //let redType = this.$parent.globalData.redType;//红包类型，2：星能红包，1：现金红包
           let options = 'uId=' + uId + '&avatar=' + avatar + '&userName=' + userName + '&redEnvelopeId=' + redEnvelopeId + '&redType=1' + '&source=2';
@@ -517,7 +517,7 @@ page{
                   imageUrl: shareImageUrl,
                   path: path
               }
-          }else{//来自页面转发 
+          }else{//来自页面转发
               return {
                   title: '动漫明星榜，邀你一起来打榜，找到小伙伴',
                   imageUrl: '../images/first1.png',
@@ -566,9 +566,9 @@ page{
               wx.setStorageSync('money',money);
               this.isShowModalRedXJ = true;
               this.isShowModalRedXJKai = false;
-              this.setData({ 
-                isShowModalRedXJ: this.isShowModalRedXJ, 
-                isShowModalRedXJKai: this.isShowModalRedXJKai 
+              this.setData({
+                isShowModalRedXJ: this.isShowModalRedXJ,
+                isShowModalRedXJKai: this.isShowModalRedXJKai
               });
             }
           });
@@ -596,9 +596,9 @@ page{
               wx.setStorageSync('money',money);
               this.isShowModalRedXN = true;
               this.isShowModalRedXNKai = false;
-              this.setData({ 
-                isShowModalRedXN: this.isShowModalRedXN, 
-                isShowModalRedXNKai: this.isShowModalRedXNKai 
+              this.setData({
+                isShowModalRedXN: this.isShowModalRedXN,
+                isShowModalRedXNKai: this.isShowModalRedXNKai
               });
             }
           });
@@ -671,8 +671,8 @@ page{
             this.itemsArray[i].activity = true;
           }else{
             wx.showToast({title: '没有更多数据了！',icon: 'none', duration: 1000});
-          }   
-        } 
+          }
+        }
         this.setData({ itemsArray: this.itemsArray});
         setTimeout(()=>{
           //this.setData({ showLoading: true });
@@ -709,7 +709,7 @@ page{
           this.time = response.data.data.time;
           for(let i=0;i<loadMoreNumber*10;i++){
             that.itemsArray[i].activity = true;
-          } 
+          }
           this.setData({
             itemsArray: this.itemsArray,
             time: this.time
@@ -717,7 +717,7 @@ page{
           //this.itemsArray = this.itemsArray;
           //console.log(this.itemsArray);
         }
-        
+
       });
     }
 
@@ -747,7 +747,7 @@ page{
           this.time = response.data.data.time;
           for(let i=0;i<loadMoreNumber*10;i++){
             that.itemsArray[i].activity = true;
-          } 
+          }
           this.setData({
             //qian3Array: this.qian3Array,
             itemsArray: this.itemsArray,
@@ -756,7 +756,7 @@ page{
           //this.itemsArray = this.itemsArray;
           //console.log(this.itemsArray);
         }
-        
+
       });
     }
 
@@ -782,6 +782,6 @@ page{
         });
         this.getTotalRank(1);
     }
-    
+
   }
 </script>

@@ -121,7 +121,7 @@ setStore(store)
 export default class extends wepy.app {
   config = {
     pages: [
-            'pages/index',
+      'pages/index',
       'pages/ali',
       'pages/support',
       'pages/call',
@@ -132,7 +132,6 @@ export default class extends wepy.app {
       'pages/jiangpin/detail',
       'pages/jiangpin/list',
       'pages/recording',
-      //'pages/ali',
       'pages/inviteFriend',
       'pages/dabang',
       'pages/myWeixinRed',
@@ -147,7 +146,6 @@ export default class extends wepy.app {
       'pages/dabangGuize',
       'pages/myStarenergy',
       'pages/kefu',
-
     ],
     window: {
       backgroundTextStyle: 'light',
