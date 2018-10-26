@@ -1,10 +1,9 @@
 <style lang="less">
 </style>
-
   <template>
       <button @tap='upimg'>上传图片</button>
   </template>
-  <!--  -->
+
   <script>
        import wepy from 'wepy'
        import {util} from '../js/util'
@@ -12,6 +11,7 @@
        import {Crypto} from  "../js/crypto"
 
      export default class Ali extends wepy.page {
+
        methods = {
            upimg(){
              console.log(33333);
@@ -94,8 +94,6 @@
               })
 
 
-
-             //////
            }
        }
      }
